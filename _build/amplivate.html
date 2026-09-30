@@ -1,0 +1,1610 @@
+<title>Amplivate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0,0&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: multi-page site in one document (hash routes). White page, cool-grey bands, deep ink CTA bands carrying a large logo watermark; logo mark + drawn wordmark everywhere. Light default, dark via toggle/system. */
+:root{
+  --bg:#ffffff;
+  --surface:#ececf0;
+  --surface-2:#f6f6f8;
+  --fg:#16181d;
+  --muted:#5b6b84;
+  --faint:#8a96a8;
+  --accent:#687d9b;
+  --accent-hover:#566a87;
+  --accent-soft:#e3e8f0;
+  --on-accent:#ffffff;
+  --logo:#4a5669;
+  --logo-hi:#93a3bf;
+  --logo-lo:#4a586f;
+  --band:#1a1f26;
+  --band-fg:#ffffff;
+  --band-muted:#b4bdcc;
+  --band-logo-hi:#9fb0cc;
+  --band-logo-lo:#56657f;
+  --line:rgba(22,24,29,.10);
+  --line-strong:rgba(22,24,29,.22);
+  --shadow:rgba(22,24,29,.14);
+  --danger:#b4412f;
+  --f-display:"Fraunces", Georgia, "Times New Roman", serif;
+  --f-body:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --wrap:1180px;
+  --gut:clamp(16px,4vw,40px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  interpolate-size:allow-keywords;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1a1f26;--surface:#212731;--surface-2:#252c37;--fg:#f1f3f6;--muted:#a7b1c1;--faint:#7c889b;
+    --accent:#8ea2c0;--accent-hover:#a3b5d0;--accent-soft:#2a3342;--on-accent:#12161c;
+    --logo:#c3ccda;--logo-hi:#c6d2e6;--logo-lo:#7385a3;
+    --band:#10141a;--band-fg:#f1f3f6;--band-muted:#a7b1c1;--band-logo-hi:#9fb0cc;--band-logo-lo:#56657f;
+    --line:rgba(241,243,246,.10);--line-strong:rgba(241,243,246,.24);--shadow:rgba(0,0,0,.5);--danger:#e98a79;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1a1f26;--surface:#212731;--surface-2:#252c37;--fg:#f1f3f6;--muted:#a7b1c1;--faint:#7c889b;
+  --accent:#8ea2c0;--accent-hover:#a3b5d0;--accent-soft:#2a3342;--on-accent:#12161c;
+  --logo:#c3ccda;--logo-hi:#c6d2e6;--logo-lo:#7385a3;
+  --band:#10141a;--band-fg:#f1f3f6;--band-muted:#a7b1c1;--band-logo-hi:#9fb0cc;--band-logo-lo:#56657f;
+  --line:rgba(241,243,246,.10);--line-strong:rgba(241,243,246,.24);--shadow:rgba(0,0,0,.5);--danger:#e98a79;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .4s,color .4s}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut)}
+h1,h2,h3{font-family:var(--f-display);font-weight:650;line-height:1.05;letter-spacing:-.02em;margin:0;text-wrap:balance}
+p{margin:0}
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:1px;background:currentColor}
+
+/* ---------- logo ---------- */
+.mark{flex:none;display:block;fill:var(--logo)}
+.mark-band{fill:var(--band-logo-hi)}
+.wm{display:block;color:var(--logo);height:auto}
+.wm{overflow:visible;shape-rendering:geometricPrecision}
+.wm use{stroke-dasharray:none}
+.draw use{stroke-dasharray:1}
+.draw use{animation:wmDraw 1.6s .2s var(--ease) both}
+@keyframes wmDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.lockup{display:grid;justify-items:start;gap:14px}
+.lockup .rule{width:48px;height:1.5px;background:var(--logo)}
+.lockup .tl{font-size:11.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);font-weight:500}
+
+/* ---------- buttons ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15.5px;padding:15px 24px;border-radius:10px;border:0;cursor:pointer;font-family:inherit;transition:transform .35s var(--ease),background .3s,color .3s,box-shadow .35s;will-change:transform;white-space:nowrap}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-hover);box-shadow:0 12px 32px -10px var(--shadow)}
+.btn-ghost{color:var(--accent);box-shadow:inset 0 0 0 1px var(--line-strong);background:var(--bg)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1px var(--accent)}
+.btn-band{background:var(--band-fg);color:var(--band)}
+.btn-band:hover{box-shadow:0 12px 32px -10px rgba(0,0,0,.5)}
+.btn-band-line{color:var(--band-fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3);background:transparent}
+.btn-band-line:hover{box-shadow:inset 0 0 0 1px var(--band-fg)}
+.btn .arr{transition:transform .35s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.textlink{color:var(--accent);font-weight:600;display:inline-flex;gap:8px;align-items:center}
+.textlink .arr{transition:transform .35s var(--ease)}
+.textlink:hover .arr{transform:translateX(5px)}
+
+/* ---------- header ---------- */
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:var(--bg);box-shadow:0 1px 0 var(--line);transition:background .35s}
+.hdr.scrolled{background:color-mix(in srgb,var(--bg) 84%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:76px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand .mark{width:33px;height:30px}
+.brand .wm{width:132px}
+.brand:hover .mark{animation:markBob .9s var(--ease)}
+@keyframes markBob{0%,100%{transform:none}40%{transform:translateY(-3px) scale(1.05)}}
+.nav{display:flex;align-items:center;gap:28px}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.nav ul a{font-size:15px;color:var(--muted);position:relative;padding-block:6px;transition:color .25s}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
+.nav ul a:hover,.nav ul a[aria-current="page"]{color:var(--fg)}
+.nav ul a:hover::after,.nav ul a[aria-current="page"]::after{transform:scaleX(1);transform-origin:left}
+.nav .btn{padding:11px 18px;font-size:14.5px}
+.tools{display:flex;align-items:center;gap:10px}
+.theme-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-strong);background:var(--bg);color:var(--fg);display:grid;place-items:center;cursor:pointer;transition:border-color .3s,transform .5s var(--ease)}
+.theme-btn:hover{border-color:var(--accent)}
+.theme-btn:active{transform:rotate(-30deg) scale(.94)}
+.theme-btn svg{width:20px;height:20px}
+.theme-btn .sun{display:none}
+.is-dark .theme-btn .sun{display:block}
+.is-dark .theme-btn .moon{display:none}
+.menu-btn{display:none;background:none;border:0;color:var(--fg);width:44px;height:44px;border-radius:50%;cursor:pointer;position:relative}
+.menu-btn span{position:absolute;left:8px;right:8px;height:2px;background:currentColor;border-radius:2px;transition:transform .35s var(--ease)}
+.menu-btn span:nth-child(1){top:17px}.menu-btn span:nth-child(2){top:25px}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(4px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){transform:translateY(-4px) rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:50;background:var(--bg);padding:calc(100px + env(safe-area-inset-top,0px)) var(--gut) calc(40px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:6px;clip-path:circle(0 at calc(100% - 38px) 38px);transition:clip-path .6s var(--ease),visibility 0s .6s;visibility:hidden;overflow-y:auto}
+.drawer.open{clip-path:circle(150% at calc(100% - 38px) 38px);visibility:visible;transition:clip-path .6s var(--ease)}
+.drawer a.big{font-family:var(--f-display);font-size:36px;font-weight:700;padding-block:8px;border-bottom:1px solid var(--line)}
+.drawer .btn{margin-top:24px;align-self:flex-start}
+.drawer .lockup{margin-top:auto;padding-top:36px}
+.drawer .lockup .mark{width:46px;height:42px}
+.drawer .lockup .wm{width:170px}
+
+/* ---------- page transition veil ---------- */
+.veil{position:fixed;inset:0;z-index:80;background:var(--band);display:grid;place-items:center;transform:translateY(100%);pointer-events:none}
+.veil .mark{width:76px;height:69px;opacity:0;transform:scale(.8)}
+.veil{visibility:hidden}
+.veil.in,.veil.out{visibility:visible}
+.veil.in{transition:transform .26s cubic-bezier(.7,0,.3,1);transform:none}
+.veil.in .mark{transition:opacity .2s .06s,transform .35s .05s var(--ease);opacity:1;transform:none}
+.veil.out{transition:transform .4s cubic-bezier(.7,0,.3,1);transform:translateY(-100%)}
+.veil.out .mark{opacity:1}
+
+/* ---------- pages ---------- */
+.page{min-height:60vh}
+section{position:relative}
+.sec{padding-block:clamp(72px,10vw,130px)}
+.sec-head{display:grid;gap:18px;max-width:760px;margin-bottom:clamp(40px,6vw,64px)}
+.sec-head h2{font-size:clamp(34px,5vw,58px)}
+.band-grey{background:var(--surface)}
+.lead{font-size:clamp(18px,1.7vw,21px);color:var(--muted);max-width:56ch}
+
+/* sub-page header */
+.phead{position:relative;overflow:hidden;padding-block:clamp(56px,8vw,110px) clamp(48px,6vw,80px);border-bottom:1px solid var(--line)}
+.phead .wrap{display:grid;gap:22px;position:relative;z-index:1}
+.phead h1{font-size:clamp(40px,6.2vw,82px);letter-spacing:-.025em;max-width:16ch}
+.phead .bgmark{position:absolute;right:-4%;top:50%;width:clamp(240px,34vw,460px);height:auto;transform:translateY(-50%);opacity:.08;animation:floaty 9s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(-50%) rotate(0)}50%{transform:translateY(-54%) rotate(-2deg)}}
+.phead.split .wrap{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:center;gap:clamp(28px,5vw,64px)}
+.phead.split .ph-text{display:grid;gap:22px;min-width:0}
+@media (max-width:980px){.phead.split .wrap{grid-template-columns:1fr}}
+.crumb{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);display:flex;gap:10px;flex-wrap:wrap}
+.crumb a{color:var(--accent)}
+.crumb a:hover{text-decoration:underline}
+
+/* ---------- home hero ---------- */
+.hero{position:relative;padding-block:clamp(48px,8vw,110px) 0;isolation:isolate;overflow:hidden}
+#net{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.hero-mark{width:clamp(64px,8vw,92px);height:auto;margin-bottom:clamp(28px,4vw,44px);overflow:visible}
+.hero-mark .p1{animation:dotDrop .9s .05s cubic-bezier(.3,1.5,.5,1) both}
+.hero-mark .p1,.hero-mark .p2,.hero-mark .p3{transform-box:view-box}
+.hero-mark .p2{animation:bladeUp .8s .2s var(--ease) both}
+.hero-mark .p3{animation:bladeUp .9s .32s var(--ease) both}
+@keyframes dotDrop{from{transform:translateY(-120px);opacity:0}to{transform:none;opacity:1}}
+@keyframes bladeUp{from{transform:translateY(90px);opacity:0}to{transform:none;opacity:1}}
+.hero h1{font-size:clamp(34px,9.4vw,80px);letter-spacing:-.025em;line-height:1.02;max-width:none}
+.hero h1 .ln{white-space:nowrap}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.08em}
+.hero h1 .w{display:inline-block;animation:rise 1.1s .35s var(--ease) both}
+.hero h1 .ln:nth-child(2) .w{animation-delay:.47s}
+.hero h1 em{font-style:normal;position:relative}
+.hero h1 em::after{content:"";position:absolute;left:.02em;right:0;bottom:.04em;height:.06em;background:var(--accent);transform-origin:left;animation:draw 1s 1.2s var(--ease) both;border-radius:4px}
+@keyframes rise{from{transform:translateY(105%)}to{transform:translateY(0)}}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.hero-sub{margin-top:30px;animation:fadeUp .9s .7s var(--ease) both}
+.hero-cta{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px;animation:fadeUp .9s .85s var(--ease) both}
+.wave-wrap{position:relative;margin-top:clamp(40px,6vw,72px);height:clamp(130px,17vw,200px)}
+#wave{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* marquee */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:18px;background:var(--bg)}
+.marquee-track{display:flex;width:max-content;animation:scroll 46s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{font-family:var(--f-display);font-weight:600;font-size:clamp(18px,2vw,24px);color:var(--muted);white-space:nowrap;padding-inline:26px;display:inline-flex;align-items:center;gap:52px}
+.marquee-track svg{width:18px;height:17px;margin-left:-26px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* values */
+.values{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.values.three{grid-template-columns:repeat(3,1fr)}
+.val{background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:34px 28px 36px;position:relative;min-width:0;overflow:hidden;transition:transform .5s var(--ease),box-shadow .5s,border-color .4s}
+.val::before{content:"";position:absolute;inset:0;background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--accent) 14%,transparent),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+.val:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px var(--shadow);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.val:hover::before{opacity:1}
+.val h3{font-size:28px;display:inline-block;position:relative;margin-bottom:16px}
+.val h3::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:100%;background:var(--accent);transform:scaleX(.25);transform-origin:left;transition:transform .5s var(--ease)}
+.val:hover h3::after{transform:scaleX(1)}
+.val p{color:var(--muted);font-size:15.5px;position:relative}
+
+/* services list */
+.svc-layout{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,90px);align-items:start}
+.svc-intro{position:sticky;top:calc(110px + env(safe-area-inset-top,0px));display:grid;gap:22px}
+.svc-intro h2{font-size:clamp(34px,4.4vw,54px)}
+.svc-intro .textlink{justify-self:start}
+.svc-group+.svc-group{margin-top:48px}
+.svc-label{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding-bottom:14px;border-bottom:1px solid var(--line)}
+.chip{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;color:var(--on-accent);background:var(--accent);padding:4px 9px;border-radius:999px}
+.svc{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 24px;align-items:center;padding:24px 4px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.svc::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--accent-soft),transparent 75%);transform:translateX(-101%);transition:transform .6s var(--ease)}
+.svc:hover::before{transform:none}
+.svc h3{font-size:clamp(21px,2.2vw,26px);font-weight:600;letter-spacing:-.01em;transition:transform .5s var(--ease),color .3s;position:relative}
+.svc p{grid-column:1;color:var(--muted);font-size:15.5px;max-width:52ch;position:relative;transition:transform .5s var(--ease)}
+.go{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:var(--accent);box-shadow:inset 0 0 0 1px var(--line-strong);transition:background .35s,box-shadow .35s,color .35s;position:relative;flex:none}
+.go svg{width:18px;height:18px;transition:transform .45s var(--ease)}
+.svc .go{grid-row:1/span 2;grid-column:2}
+.svc:hover h3{color:var(--accent);transform:translateX(10px)}
+.svc:hover p{transform:translateX(10px)}
+.svc:hover .go,.scard:hover .go{background:var(--accent);box-shadow:none;color:var(--on-accent)}
+.svc:hover .go svg,.scard:hover .go svg{transform:rotate(-45deg)}
+
+/* services page cards */
+.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.sgroup+.sgroup{margin-top:56px}
+.sgroup-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.sgroup-head h2{font-size:clamp(26px,3vw,36px)}
+.scard{background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:0;display:flex;flex-direction:column;min-width:0;position:relative;overflow:hidden;transition:transform .5s var(--ease),box-shadow .5s,border-color .4s}
+.scard .sbody{padding:26px 28px 30px;display:grid;grid-template-rows:auto 1fr auto;gap:12px;flex:1;position:relative}
+.scard:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px var(--shadow);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.scard .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.scard h3{font-size:clamp(22px,2.3vw,28px)}
+.scard p{color:var(--muted);font-size:15.5px}
+.scard .more{font-weight:600;color:var(--accent);font-size:15px}
+.scard .wmk{position:absolute;right:-30px;bottom:-40px;width:150px;height:auto;opacity:.06;transition:transform .8s var(--ease),opacity .5s}
+.scard:hover .wmk{transform:translate(-10px,-12px) rotate(-6deg);opacity:.12}
+
+/* steps */
+.steps{list-style:none;margin:0;padding:44px 0 0;display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:clamp(20px,3vw,36px);position:relative}
+.steps::before,.steps .fill{content:"";position:absolute;top:10px;left:0;right:0;height:2px;background:var(--line-strong);border-radius:2px}
+.steps .fill{background:var(--accent);transform:scaleX(var(--p,0));transform-origin:left;transition:transform .15s linear}
+.step{position:relative;min-width:0}
+.step .dot{position:absolute;top:-41px;left:0;width:18px;height:18px;border-radius:50%;background:var(--surface);box-shadow:inset 0 0 0 2px var(--line-strong);transition:box-shadow .4s,background .4s,transform .4s var(--ease)}
+.bg-white .step .dot{background:var(--bg)}
+.step.on .dot{background:var(--accent);box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 22%,transparent);transform:scale(1.1)}
+.step .num{font-family:var(--f-display);font-weight:600;font-size:clamp(50px,5.4vw,74px);line-height:1;color:var(--accent);letter-spacing:-.03em;display:block;margin-bottom:14px;font-variant-numeric:tabular-nums}
+.step h3{font-size:25px;margin-bottom:12px}
+.step p{color:var(--muted);font-size:15.5px}
+
+/* work cards */
+.work-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(40px,6vw,60px)}
+.work-head .sec-head{margin:0}
+.work-head .note{color:var(--muted);max-width:44ch;font-size:15.5px}
+.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.cards .card{grid-column:span 2}
+.cards.five .card:nth-child(n+4){grid-column:span 3}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:transform .5s var(--ease),border-color .4s,box-shadow .5s;position:relative}
+.card:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--accent) 50%,transparent);box-shadow:0 30px 60px -30px var(--shadow)}
+.card .viz{height:190px;position:relative;background:var(--surface);border-bottom:1px solid var(--line);overflow:hidden;display:grid;place-items:center}
+.card .body{padding:26px 26px 30px;display:grid;gap:12px}
+.tag{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.card h3{font-size:22px;font-weight:600;line-height:1.2;letter-spacing:-.01em}
+.card p{color:var(--muted);font-size:15px}
+.work-more{margin-top:40px;display:flex;justify-content:center}
+.serp{width:78%;position:relative;height:132px}
+.serp .row{position:absolute;left:0;right:0;height:36px;border-radius:10px;background:var(--bg);box-shadow:0 1px 0 var(--line);display:flex;align-items:center;gap:10px;padding-inline:12px;transition:top .9s var(--ease)}
+.serp .row i{width:12px;height:12px;border-radius:50%;background:var(--line-strong);flex:none}
+.serp .row b{height:7px;border-radius:4px;background:var(--line-strong);flex:1;max-width:60%}
+.serp .row small{margin-left:auto;font-family:var(--f-mono);font-size:10px;color:var(--faint)}
+.serp .r1{top:0}.serp .r2{top:48px}.serp .you{top:96px;background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.serp .you i,.serp .you b{background:var(--accent)}.serp .you small{color:var(--accent)}
+.card.play .serp .you{top:0}.card.play .serp .r1{top:48px}.card.play .serp .r2{top:96px}
+.site{width:78%;height:138px;border-radius:12px;background:var(--bg);box-shadow:0 0 0 1px var(--line),0 14px 30px -18px var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.site .bar{height:20px;display:flex;gap:5px;align-items:center;padding-inline:9px;border-bottom:1px solid var(--line)}
+.site .bar i{width:6px;height:6px;border-radius:50%;background:var(--line-strong)}
+.site .pg{flex:1;padding:14px;display:grid;grid-template-columns:1.2fr 1fr;gap:12px;align-items:center}
+.lines{display:grid;gap:7px}
+.lines b{height:8px;border-radius:4px;background:var(--line)}
+.lines b:first-child{height:12px;width:90%;background:var(--line-strong)}
+.lines b:nth-child(3){width:70%}
+.pill{margin-top:6px;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--on-accent);padding:6px 9px;border-radius:6px;justify-self:start;font-weight:500;animation:pulse 2.4s ease-in-out infinite;white-space:nowrap}
+.site .img{height:78px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent-soft))}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 50%,transparent)}60%{box-shadow:0 0 0 8px color-mix(in srgb,var(--accent) 0%,transparent)}}
+.chat{width:80%;display:grid;gap:8px}
+.bub{max-width:82%;font-size:11.5px;line-height:1.35;padding:8px 11px;border-radius:12px;background:var(--bg);color:var(--muted);box-shadow:0 1px 0 var(--line);opacity:.35;transform:translateY(6px);transition:opacity .5s,transform .5s var(--ease)}
+.bub.me{justify-self:end;background:var(--accent);color:var(--on-accent)}
+.stars{display:flex;gap:3px;margin-top:5px}
+.stars svg{width:14px;height:14px;fill:color-mix(in srgb,var(--on-accent) 35%,transparent);transition:fill .3s}
+.card.play .bub{opacity:1;transform:none}
+.card.play .bub:nth-child(2){transition-delay:.5s}
+.card.play .bub:nth-child(3){transition-delay:1s}
+.card.play .stars svg{fill:#f2c14e}
+.card.play .stars svg:nth-child(1){transition-delay:1.4s}.card.play .stars svg:nth-child(2){transition-delay:1.5s}.card.play .stars svg:nth-child(3){transition-delay:1.6s}.card.play .stars svg:nth-child(4){transition-delay:1.7s}.card.play .stars svg:nth-child(5){transition-delay:1.8s}
+.ads{width:80%;display:grid;gap:16px}
+.ads .r{display:grid;gap:6px}
+.ads .lbl{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.ads .trk{height:12px;border-radius:6px;background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+.ads .fil{height:100%;border-radius:6px;transition:width 1.2s var(--ease)}
+.ads .waste .fil{width:82%;background:var(--line-strong)}
+.ads .good .fil{width:18%;background:var(--accent)}
+.card.play .ads .waste .fil{width:22%}
+.card.play .ads .good .fil{width:78%}
+.phone{width:84px;height:150px;border-radius:18px;background:var(--bg);box-shadow:0 0 0 1px var(--line-strong),0 18px 30px -18px var(--shadow);padding:18px 10px 12px;display:grid;grid-template-rows:auto 1fr auto;gap:8px;position:relative;transition:transform .9s var(--ease)}
+.phone::before{content:"";position:absolute;top:7px;left:50%;width:22px;height:4px;border-radius:2px;background:var(--line-strong);transform:translateX(-50%)}
+.phone .ph-img{height:42px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent-soft))}
+.phone .pill{justify-self:stretch;text-align:center;font-size:8px;padding:5px 4px}
+.card.play .phone{transform:translateY(-4px) rotate(-3deg)}
+
+/* CTA band */
+.cta{background:var(--band);color:var(--band-fg);overflow:hidden;isolation:isolate}
+.cta .wm-big{position:absolute;right:-6%;bottom:-18%;width:clamp(280px,42vw,560px);height:auto;opacity:.16;z-index:-1;transition:transform .2s linear}
+.cta .wrap{display:grid;gap:26px;justify-items:start}
+.cta h2{font-size:clamp(38px,6.2vw,82px);letter-spacing:-.025em;max-width:14ch}
+.cta p{max-width:58ch;font-size:clamp(17px,1.6vw,19px);color:var(--band-muted)}
+.cta .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+
+/* service detail */
+.sd-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,6vw,80px);align-items:start}
+.sd-over{font-family:var(--f-display);font-size:clamp(22px,2.3vw,29px);line-height:1.38;letter-spacing:-.01em;font-weight:500}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.ticks li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:14px;align-items:start;font-size:16.5px}
+.ticks li svg{width:22px;height:21px;margin-top:3px}
+.panel{background:var(--surface);border-radius:22px;padding:30px 28px;display:grid;gap:18px}
+.panel h3{font-size:22px}
+.panel .ticks li{font-size:15.5px;color:var(--muted)}
+.sd-benefits{margin-top:36px;display:grid;gap:18px}
+.sd-benefits h3{font-size:22px}
+
+/* faqs */
+.faq-list{display:grid;border-top:1px solid var(--line)}
+.faq{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:24px 4px}
+.faq summary::-webkit-details-marker{display:none}
+.faq .q{font-family:var(--f-display);font-weight:500;font-size:clamp(19px,2vw,23px);line-height:1.3;transition:color .3s}
+.faq .cat{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:6px;font-weight:500}
+.faq summary:hover .q{color:var(--accent)}
+.faq .pm{width:40px;height:40px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line-strong);position:relative;transition:background .35s,transform .45s var(--ease)}
+.faq .pm::before,.faq .pm::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:1.8px;background:var(--accent);transform:translate(-50%,-50%);transition:transform .45s var(--ease),background .3s}
+.faq .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq[open] .pm{background:var(--accent);transform:rotate(180deg)}
+.faq[open] .pm::before,.faq[open] .pm::after{background:var(--on-accent)}
+.faq[open] .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.faq::details-content{height:0;overflow:clip;transition:height .45s var(--ease),content-visibility .45s allow-discrete}
+.faq[open]::details-content{height:auto}
+.faq .a{padding:0 60px 26px 4px;color:var(--muted);max-width:70ch}
+
+/* about */
+.mission{font-family:var(--f-display);font-weight:500;font-size:clamp(26px,3.6vw,46px);line-height:1.2;letter-spacing:-.015em;max-width:26ch}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,5vw,64px)}
+.two h2{font-size:clamp(26px,3vw,36px);margin-bottom:16px}
+.two p{color:var(--muted)}
+.founder{display:grid;grid-template-columns:auto minmax(0,1fr);gap:28px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:22px;padding:30px}
+.monogram{width:112px;height:112px;border-radius:50%;background:var(--band);display:grid;place-items:center}
+.monogram .mark{width:56px;height:54px}
+.founder h3{font-size:26px}
+.founder .role{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-top:6px}
+.founder .bio{margin-top:14px;color:var(--muted);font-size:15.5px;line-height:1.65}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,5vw,64px);align-items:start}
+.form{display:grid;gap:18px}
+.form .pair{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.fld{display:grid;gap:8px;min-width:0}
+.fld label{font-weight:600;font-size:14.5px}
+.fld input,.fld select,.fld textarea{font:inherit;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line-strong);border-radius:10px;padding:13px 14px;width:100%;transition:border-color .25s,box-shadow .25s}
+.fld textarea{min-height:150px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+.fld .err{color:var(--danger);font-size:13.5px;min-height:0}
+.fld.bad input,.fld.bad textarea{border-color:var(--danger)}
+.form .btn{justify-self:start}
+.done{background:var(--surface);border-radius:22px;padding:30px;display:grid;gap:16px;animation:fadeUp .6s var(--ease) both}
+.done h3{font-size:28px}
+.done p{color:var(--muted)}
+.done pre{margin:0;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px;font-family:var(--f-mono);font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word;max-height:280px;overflow:auto;color:var(--fg)}
+.done .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.aside{display:grid;gap:16px}
+.info{background:var(--surface);border-radius:22px;padding:28px;display:grid;gap:18px}
+.info .it{display:grid;gap:4px}
+.info .k{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.info .v{font-weight:600}
+.sc{background:var(--band);color:var(--band-fg);border-radius:22px;padding:30px 28px;display:grid;gap:14px;position:relative;overflow:hidden;isolation:isolate}
+.sc h3{font-size:28px}
+.sc p{color:var(--band-muted);font-size:15.5px}
+.sc .wm-big{position:absolute;right:-40px;bottom:-50px;width:200px;height:auto;opacity:.18;z-index:-1}
+.sc.flash{animation:flash 1.4s var(--ease)}
+@keyframes flash{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 0%,transparent)}30%{box-shadow:0 0 0 8px color-mix(in srgb,var(--accent) 40%,transparent)}}
+.mail{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mail span{user-select:all;font-weight:600}
+.copy{font:inherit;font-size:12.5px;background:transparent;color:var(--accent);border:1px solid var(--line-strong);border-radius:999px;padding:5px 12px;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.copy:hover{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+
+/* legal */
+.prose{max-width:70ch;display:grid;gap:14px}
+.prose h2{font-size:clamp(22px,2.4vw,28px);margin-top:26px}
+.prose p,.prose li{color:var(--muted)}
+.prose ul{margin:0;padding-left:20px;display:grid;gap:8px}
+.note{background:var(--surface);border-radius:12px;padding:14px 18px;font-size:15px;color:var(--muted)}
+
+/* footer */
+footer{background:var(--surface);padding-block:72px 36px}
+.foot{display:grid;grid-template-columns:2fr 1fr 1.3fr;gap:40px}
+.foot .lockup .mark{width:48px;height:44px}
+.foot .lockup .wm{width:190px}
+.foot h4{margin:0 0 16px;font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.foot ul a{color:var(--muted);transition:color .25s}
+.foot ul a:hover{color:var(--accent)}
+.foot .muted{color:var(--faint);margin-top:10px}
+.legal{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--faint)}
+.legal nav{display:flex;gap:22px}
+.legal a:hover{color:var(--fg)}
+
+/* ---------- service animations ---------- */
+.sviz{height:214px;background:var(--surface);border-bottom:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.sviz-panel{background:var(--surface);border:1px solid var(--line);border-radius:24px;height:clamp(250px,27vw,320px);display:grid;place-items:center;overflow:hidden;position:relative}
+.sviz-panel .sv{transform:scale(1.22)}
+.sv{width:280px;height:180px;position:relative;font-family:var(--f-body);color:var(--fg);flex:none;text-align:left}
+.sv .cs{background:var(--bg);border-radius:14px;box-shadow:0 0 0 1px var(--line),0 14px 28px -20px var(--shadow)}
+.play .sv{animation:svFade 6.5s infinite}
+@keyframes svFade{0%{opacity:0}4%,94%{opacity:1}100%{opacity:0}}
+@keyframes st1{0%,4%{opacity:0;transform:translateY(10px)}11%,100%{opacity:1;transform:none}}
+@keyframes st2{0%,16%{opacity:0;transform:translateY(10px)}23%,100%{opacity:1;transform:none}}
+@keyframes st3{0%,28%{opacity:0;transform:translateY(10px)}35%,100%{opacity:1;transform:none}}
+@keyframes st4{0%,40%{opacity:0;transform:translateY(10px)}47%,100%{opacity:1;transform:none}}
+@keyframes st5{0%,52%{opacity:0;transform:translateY(10px)}59%,100%{opacity:1;transform:none}}
+.play .sv .s1{animation:st1 6.5s var(--ease) infinite}
+.play .sv .s2{animation:st2 6.5s var(--ease) infinite}
+.play .sv .s3{animation:st3 6.5s var(--ease) infinite}
+.play .sv .s4{animation:st4 6.5s var(--ease) infinite}
+.play .sv .s5{animation:st5 6.5s var(--ease) infinite}
+@keyframes starFill{0%,22%{fill:var(--line-strong);transform:scale(.6)}30%,100%{fill:#f2c14e;transform:none}}
+@keyframes starFillB{0%,32%{fill:var(--line-strong);transform:scale(.6)}40%,100%{fill:#f2c14e;transform:none}}
+.sv .stf svg{fill:#f2c14e;transform-origin:center;transform-box:fill-box}
+
+/* local SEO: search, then your pin drops to the top of the map */
+.sv-seo .sbar{position:absolute;left:0;right:0;top:0;height:34px;border-radius:17px;display:flex;align-items:center;gap:8px;padding:0 14px;font-family:var(--f-mono);font-size:11.5px}
+.sv-seo .sbar svg{width:14px;height:14px;color:var(--faint);flex:none}
+.sv-seo .typed{display:inline-block;overflow:hidden;white-space:nowrap;width:15ch;vertical-align:bottom}
+.sv-seo .caret{width:1.5px;height:14px;background:var(--accent);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.sv-seo .map{position:absolute;left:0;right:0;bottom:0;top:46px;overflow:hidden}
+.sv-seo .road{position:absolute;background:var(--surface)}
+.sv-seo .r1{left:-10%;right:-10%;top:42%;height:10px;transform:rotate(-8deg)}
+.sv-seo .r2{top:-10%;bottom:-10%;left:64%;width:10px;transform:rotate(12deg)}
+.sv-seo .r3{left:-10%;width:70%;top:80%;height:7px;transform:rotate(12deg)}
+.sv-seo .pin{position:absolute;width:20px;height:24px;opacity:.5}
+.sv-seo .pin::before{content:"";position:absolute;left:1px;top:0;width:18px;height:18px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--faint)}
+.sv-seo .pin.you{opacity:1;z-index:2}
+.sv-seo .pin.you::before{background:var(--accent)}
+.sv-seo .pin.you b{position:relative;display:block;text-align:center;font-size:9.5px;line-height:18px;color:var(--on-accent);font-weight:800}
+.sv-seo .p1{left:18%;top:16%}.sv-seo .p2{left:78%;top:50%}.sv-seo .p3{left:28%;top:60%}
+.sv-seo .you{left:46%;top:22%}
+.sv-seo .ring{position:absolute;left:calc(46% - 12px);top:22%;width:44px;height:44px;border-radius:50%;border:2px solid var(--accent);opacity:0}
+.sv-seo .label{position:absolute;left:calc(46% + 26px);top:calc(22% + 1px);font-size:9px;font-weight:700;background:var(--fg);color:var(--bg);padding:3px 7px;border-radius:6px;white-space:nowrap}
+.play .sv-seo .typed{animation:svType 6.5s steps(15,end) infinite}
+@keyframes svType{0%,3%{width:0}24%,100%{width:15ch}}
+.play .sv-seo .pin.you{animation:pinDrop 6.5s infinite}
+@keyframes pinDrop{0%,28%{transform:translateY(-60px);opacity:0}36%{transform:none;opacity:1}40%{transform:translateY(-8px)}44%,100%{transform:none;opacity:1}}
+.play .sv-seo .ring{animation:ringOut 6.5s ease-out infinite}
+@keyframes ringOut{0%,43%{transform:scale(.3);opacity:0}47%{opacity:.9}72%,100%{transform:scale(2.3);opacity:0}}
+.play .sv-seo .p1,.play .sv-seo .p2,.play .sv-seo .p3{animation:pinDim 6.5s infinite}
+@keyframes pinDim{0%,30%{opacity:1}42%,100%{opacity:.5}}
+
+/* Google Business Profile: profile fills in, actions light up, enquiries grow */
+.sv-gbp{display:grid;grid-template-columns:1fr 78px;gap:14px}
+.sv-gbp .prof{padding:10px;display:grid;gap:8px;align-content:start}
+.sv-gbp .ph{display:grid;grid-template-columns:2fr 1fr 1fr;gap:4px;height:50px}
+.sv-gbp .ph i{border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent-soft))}
+.sv-gbp .ph i:nth-child(2){background:var(--line-strong)}
+.sv-gbp .ph i:nth-child(3){background:var(--accent-soft)}
+.sv-gbp .nm{height:9px;width:72%;border-radius:5px;background:var(--fg);opacity:.7}
+.sv-gbp .meta{height:6px;width:50%;border-radius:3px;background:var(--line-strong)}
+.sv-gbp .stf{display:flex;gap:2px}
+.sv-gbp .stf svg{width:12px;height:12px}
+.sv-gbp .acts{display:flex;gap:5px;flex-wrap:wrap}
+.sv-gbp .acts span{font-size:9px;font-weight:700;padding:4px 7px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line-strong);color:var(--accent)}
+.sv-gbp .gb{display:flex;align-items:flex-end;gap:7px;padding:12px 8px 22px;position:relative}
+.sv-gbp .gb .b{flex:1;height:var(--h);border-radius:5px 5px 2px 2px;background:var(--accent);position:relative}
+.sv-gbp .gb .b small{position:absolute;bottom:-17px;left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-size:8px;color:var(--faint)}
+.sv-gbp .gb::after{content:"";position:absolute;left:8px;right:8px;bottom:21px;height:1px;background:var(--line-strong)}
+.play .sv-gbp .stf svg{animation:starFill 6.5s var(--ease) calc(var(--i)*.12s) infinite both}
+.play .sv-gbp .acts span{animation:actHi 6.5s calc(var(--i)*.35s) infinite both}
+@keyframes actHi{0%,40%{background:transparent;color:var(--accent)}45%,56%{background:var(--accent);color:var(--on-accent)}62%,100%{background:transparent;color:var(--accent)}}
+.play .sv-gbp .gb .b{animation:grow 6.5s var(--ease) calc(var(--i)*.15s) infinite both}
+@keyframes grow{0%,34%{height:6%}58%,100%{height:var(--h)}}
+
+/* website: page assembles, cursor clicks the call to action, enquiry lands */
+.sv-web .br{position:absolute;inset:0;overflow:hidden}
+.sv-web .bbar{height:20px;border-bottom:1px solid var(--line);display:flex;gap:5px;align-items:center;padding:0 9px}
+.sv-web .bbar i{width:6px;height:6px;border-radius:50%;background:var(--line-strong)}
+.sv-web .bnav{position:absolute;top:32px;left:14px;right:14px;display:flex;align-items:center;gap:8px}
+.sv-web .bnav svg{width:15px;height:14px}
+.sv-web .bnav b{width:22px;height:5px;border-radius:3px;background:var(--line-strong)}
+.sv-web .bnav b:first-of-type{margin-left:auto}
+.sv-web .bh{position:absolute;left:14px;top:64px;width:132px;display:grid;gap:6px}
+.sv-web .bh i{display:block;height:11px;border-radius:5px;background:var(--fg);opacity:.75}
+.sv-web .bh i:nth-child(2){width:72%}
+.sv-web .bh i:nth-child(3){height:6px;width:88%;background:var(--line-strong);opacity:1;margin-top:3px}
+.sv-web .bbtn{position:absolute;left:14px;top:124px;font-size:9px;font-weight:800;padding:7px 11px;border-radius:7px;background:var(--accent);color:var(--on-accent);transform-origin:left center}
+.sv-web .bimg{position:absolute;right:14px;top:60px;width:108px;height:94px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-soft))}
+.sv-web .cur{position:absolute;left:58px;top:134px;width:16px;height:18px;z-index:3}
+.sv-web .cur svg{display:block;width:100%;height:100%;fill:var(--fg);stroke:var(--bg);stroke-width:1.5}
+.sv-web .toast{position:absolute;right:10px;bottom:10px;font-size:9.5px;font-weight:800;padding:6px 10px;border-radius:8px;background:var(--fg);color:var(--bg);z-index:3}
+.play .sv-web .bh i{animation:wipe 6.5s var(--ease) calc(var(--i)*.12s) infinite both}
+@keyframes wipe{0%,10%{clip-path:inset(0 100% 0 0)}22%,100%{clip-path:inset(0 0 0 0)}}
+.play .sv-web .bimg{animation:zoomIn 6.5s var(--ease) infinite}
+@keyframes zoomIn{0%,16%{opacity:0;transform:scale(.85)}27%,100%{opacity:1;transform:none}}
+.play .sv-web .bbtn{animation:btnPop 6.5s var(--ease) infinite}
+@keyframes btnPop{0%,25%{opacity:0;transform:scale(.6)}31%{opacity:1;transform:scale(1.08)}34%,48%{opacity:1;transform:none;box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 55%,transparent)}51%{transform:scale(.93)}58%{transform:none;box-shadow:0 0 0 12px color-mix(in srgb,var(--accent) 0%,transparent)}62%,100%{opacity:1;transform:none}}
+.play .sv-web .cur{animation:curMove 6.5s var(--ease) infinite}
+@keyframes curMove{0%,33%{transform:translate(170px,30px);opacity:0}37%{opacity:1}47%{transform:none}50%{transform:scale(.82)}53%,100%{transform:none;opacity:1}}
+
+/* social: posts drop into the calendar, the post gets likes */
+.sv-social{display:grid;grid-template-columns:1fr 92px;gap:14px}
+.sv-social .cal{padding:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;align-content:start}
+.sv-social .dh{font-family:var(--f-mono);font-size:8px;color:var(--faint);text-align:center}
+.sv-social .c{height:38px;border-radius:6px;background:var(--surface);position:relative}
+.sv-social .c.s::after{content:"";position:absolute;inset:0;border-radius:6px;background:linear-gradient(135deg,var(--accent),var(--accent-soft))}
+.play .sv-social .c.s::after{animation:sched 6.5s var(--ease) calc(var(--i)*.32s) infinite both}
+@keyframes sched{0%,6%{transform:scale(.3);opacity:0}12%,100%{transform:none;opacity:1}}
+.sv-social .post{padding:8px;display:grid;gap:7px;align-content:start;position:relative}
+.sv-social .im{height:80px;border-radius:8px;background:linear-gradient(160deg,var(--accent-soft),var(--accent))}
+.sv-social .rw{display:flex;align-items:center;gap:6px}
+.sv-social .rw svg{width:14px;height:14px;fill:var(--accent);flex:none}
+.sv-social .rw b{height:5px;flex:1;border-radius:3px;background:var(--line-strong)}
+.sv-social .ln{height:5px;border-radius:3px;background:var(--line)}
+.sv-social .hz{position:absolute;left:12px;bottom:40px;width:13px;height:13px;fill:var(--accent);opacity:0}
+.play .sv-social .hz{animation:floatH 6.5s ease-out calc(var(--i)*.25s) infinite both}
+@keyframes floatH{0%,52%{transform:translate(0,0) scale(.4);opacity:0}58%{opacity:1}82%,100%{transform:translate(var(--x),-86px) scale(1.1);opacity:0}}
+.play .sv-social .rw svg{animation:beat 6.5s infinite}
+@keyframes beat{0%,52%{transform:none}56%{transform:scale(1.45)}60%,100%{transform:none}}
+
+/* missed-call text back: missed call, instant text, booked */
+.sv-mctb{display:grid;place-items:center}
+.sv-mctb .ph2{width:200px;height:180px;border-radius:20px;padding:12px 10px;display:grid;align-content:start;gap:7px;overflow:hidden}
+.sv-mctb .notif{display:flex;align-items:center;gap:8px;background:var(--surface);border-radius:10px;padding:7px 8px;font-size:9.5px;font-weight:800;line-height:1.25}
+.sv-mctb .notif small{display:block;font-weight:500;color:var(--faint);font-size:8.5px}
+.sv-mctb .ic{width:20px;height:20px;border-radius:50%;background:var(--danger);display:grid;place-items:center;flex:none}
+.sv-mctb .ic svg{width:11px;height:11px;fill:var(--bg)}
+.sv-mctb .msg{max-width:86%;font-size:9.5px;line-height:1.35;padding:7px 9px;border-radius:11px}
+.sv-mctb .out{justify-self:end;background:var(--accent);color:var(--on-accent);border-bottom-right-radius:3px}
+.sv-mctb .in{justify-self:start;background:var(--surface);border-bottom-left-radius:3px}
+.sv-mctb .saved{justify-self:center;font-family:var(--f-mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:4px 9px;border-radius:999px}
+.play .sv-mctb .notif{animation:ringIn 6.5s var(--ease) infinite}
+@keyframes ringIn{0%,3%{opacity:0;transform:translateY(-16px)}9%{opacity:1;transform:none}11%,15%,19%{transform:translateX(-3px)}13%,17%{transform:translateX(3px)}21%,100%{opacity:1;transform:none}}
+
+/* review follow-up: job done, request sent, five stars, new review */
+.sv-rev{display:grid;align-content:center;gap:8px;padding-inline:12px}
+.sv-rev .chipd{justify-self:start;font-family:var(--f-mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;background:var(--fg);color:var(--bg);padding:4px 9px;border-radius:999px}
+.sv-rev .req{justify-self:end;max-width:80%;font-size:9.5px;line-height:1.35;padding:7px 10px;border-radius:11px 11px 3px 11px;background:var(--accent);color:var(--on-accent)}
+.sv-rev .big{display:flex;gap:4px;justify-self:center}
+.sv-rev .big svg{width:22px;height:22px}
+.play .sv-rev .big svg{animation:starFillB 6.5s var(--ease) calc(var(--i)*.13s) infinite both}
+.sv-rev .rc{padding:9px 10px;display:grid;grid-template-columns:26px minmax(0,1fr);gap:4px 9px;align-items:center}
+.sv-rev .av{grid-row:span 2;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-soft))}
+.sv-rev .rc .stf{display:flex;align-items:center;gap:1px}
+.sv-rev .rc .stf svg{width:10px;height:10px}
+.sv-rev .rc .tagn{font-family:var(--f-mono);font-size:8px;font-weight:500;color:var(--accent);margin-left:7px;text-transform:uppercase;letter-spacing:.06em}
+.sv-rev .rc p{font-size:9.5px;color:var(--muted);line-height:1.3}
+
+@media (max-width:620px){ .sviz-panel .sv{transform:scale(1.08)} .sviz-panel{height:250px} }
+
+
+/* ---------- hero: copy + results feed ---------- */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:44px;align-items:center;position:relative}
+.hero-copy{min-width:0}
+.hero-eyebrow{display:block;font-family:var(--f-mono);font-size:12.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);line-height:1.5;margin-bottom:22px;white-space:normal;animation:fadeUp .8s .1s var(--ease) both}
+.promise{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 22px;max-width:600px;animation:fadeUp .9s 1s var(--ease) both}
+.promise li{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:500;color:var(--muted);line-height:1.35;min-width:0}
+.promise svg{width:22px;height:22px;padding:4px;border-radius:50%;background:var(--accent-soft);color:var(--accent);flex:none}
+.feed{background:var(--bg);border:1px solid var(--line);border-radius:24px;padding:20px 20px 8px;box-shadow:0 30px 60px -36px var(--shadow);width:100%;max-width:460px;justify-self:center;animation:fadeUp 1s .55s var(--ease) both;position:relative}
+.feed-head{display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.feed-head .mark{width:22px;height:20px}
+.feed-head em{margin-left:auto;font-style:normal;font-size:10px;letter-spacing:.08em;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:999px}
+.feed-chart{margin-top:16px;background:var(--surface-2);border-radius:14px;padding:12px 14px 6px}
+.fc-lbl{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:700;color:var(--fg)}
+.fc-lbl b{color:var(--accent);font-size:15px}
+.feed-chart svg{display:block;width:100%;height:64px;margin-top:4px;overflow:visible}
+.fc-area{fill:var(--accent-soft)}
+.fc-line{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0;vector-effect:non-scaling-stroke}
+.fc-dot{fill:var(--accent)}
+.feed-list{list-style:none;margin:8px 0 0;padding:0}
+.fi{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 2px;border-top:1px solid var(--line)}
+.fi:first-child{border-top:0}
+.fic{width:36px;height:36px;border-radius:11px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent)}
+.fic svg{width:17px;height:17px;fill:currentColor}
+.ft{display:grid;min-width:0;line-height:1.3}
+.ft b{font-size:14px;color:var(--fg)}
+.ft small{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fr{font-family:var(--f-mono);font-size:12px;font-weight:500;color:var(--accent);white-space:nowrap}
+.fr s{color:var(--faint);margin-right:4px}
+.fst{display:flex;gap:1px}
+.fst svg{width:11px;height:11px;fill:#f2c14e}
+.fok,.fnew{font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;white-space:nowrap}
+.fok{background:var(--accent);color:var(--on-accent)}
+.fnew{background:var(--fg);color:var(--bg)}
+@keyframes fdOut{0%,72%{opacity:1;transform:none}75%,100%{opacity:0;transform:translateY(-8px)}}
+@keyframes fd1{0%,72%{opacity:1;transform:none}75%{opacity:0;transform:translateY(-8px)}77%{opacity:0;transform:translateY(14px) scale(.98)}80%,100%{opacity:1;transform:none}}
+@keyframes fd2{0%,72%{opacity:1;transform:none}75%{opacity:0;transform:translateY(-8px)}81%{opacity:0;transform:translateY(14px) scale(.98)}84%,100%{opacity:1;transform:none}}
+@keyframes fd3{0%,72%{opacity:1;transform:none}75%{opacity:0;transform:translateY(-8px)}85%{opacity:0;transform:translateY(14px) scale(.98)}88%,100%{opacity:1;transform:none}}
+@keyframes fd4{0%,72%{opacity:1;transform:none}75%{opacity:0;transform:translateY(-8px)}89%{opacity:0;transform:translateY(14px) scale(.98)}92%,100%{opacity:1;transform:none}}
+@keyframes fdLine{0%,72%{stroke-dashoffset:0;opacity:1}75%{opacity:0;stroke-dashoffset:0}77%{opacity:1;stroke-dashoffset:1}97%,100%{stroke-dashoffset:0;opacity:1}}
+@keyframes fdDot{0%,72%{transform:none;opacity:1}75%,94%{opacity:0;transform:scale(.3)}97%{opacity:1;transform:scale(1.5)}100%{opacity:1;transform:none}}
+.fi1{animation:fd1 12s -9.1s var(--ease) infinite}
+.fi2{animation:fd2 12s -9.1s var(--ease) infinite}
+.fi3{animation:fd3 12s -9.1s var(--ease) infinite}
+.fi4{animation:fd4 12s -9.1s var(--ease) infinite}
+.fc-line{animation:fdLine 12s -9.1s ease-in-out infinite}
+.fc-dot{transform-box:fill-box;transform-origin:center;animation:fdDot 12s -9.1s var(--ease) infinite}
+.fc-area{animation:fdArea 12s -9.1s ease-in-out infinite}
+@keyframes fdArea{0%,72%{opacity:1}75%,80%{opacity:0}97%,100%{opacity:1}}
+@media (min-width:981px){
+  .hero-grid{grid-template-columns:minmax(0,1.22fr) minmax(0,.78fr);gap:clamp(36px,4.5vw,72px)}
+  .hero h1{font-size:clamp(48px,5.2vw,80px)}
+  .feed{justify-self:end}
+}
+@media (max-width:620px){
+  .hero-eyebrow .sep{display:none}
+  .hero-eyebrow .loc{display:block}
+  .promise{grid-template-columns:1fr;gap:10px}
+  .feed{padding:16px 14px 6px}
+}
+
+/* ---------- home: services preview ---------- */
+.svc-preview{position:relative;height:clamp(240px,23vw,286px);background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;margin-top:10px}
+.spv{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transform:translateY(12px) scale(.98);transition:opacity .5s var(--ease),transform .6s var(--ease);pointer-events:none}
+.spv.on{opacity:1;transform:none}
+.spv .sv{transform:scale(1.06)}
+.spv-name{position:absolute;left:16px;top:14px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.spv .pbar{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--accent)}
+.spv.on.play .pbar{animation:pbar 6.5s linear forwards}
+@keyframes pbar{to{width:100%}}
+.svc.is-active::before{transform:none}
+.svc.is-active h3{color:var(--accent);transform:translateX(10px)}
+.svc.is-active p{transform:translateX(10px)}
+.svc.is-active .go{background:var(--accent);box-shadow:none;color:var(--on-accent)}
+.svc.is-active .go svg{transform:rotate(-45deg)}
+@media (max-width:620px){ .spv .sv{transform:scale(.98)} }
+
+/* ---------- home: meet the founder ---------- */
+.meet-sec{padding-block:clamp(64px,8vw,100px) 0}
+.meet{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(24px,4vw,52px);align-items:center;background:var(--surface-2);border:1px solid var(--line);border-radius:26px;padding:clamp(24px,4vw,48px)}
+.meet-av,.monogram{width:clamp(104px,11vw,148px);height:auto;aspect-ratio:1;border-radius:50%;background:var(--band);display:grid;place-items:center;overflow:hidden;box-shadow:0 0 0 6px var(--bg),0 0 0 7px var(--line);flex:none}
+.meet-av .mark,.monogram .mark{width:48%;height:auto}
+.meet-av img,.monogram img{width:100%;height:100%;object-fit:cover;display:block}
+.meet-txt{display:grid;gap:14px;justify-items:start;min-width:0}
+.meet-txt h2{font-size:clamp(26px,3vw,40px);max-width:22ch}
+.meet-txt p{color:var(--muted);max-width:60ch}
+@media (max-width:620px){ .meet{grid-template-columns:1fr} }
+
+/* ---------- service pages: why + who, timing chips ---------- */
+.sd-two{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,5vw,72px);align-items:start}
+.sd-two h2{font-size:clamp(26px,3vw,38px);margin:16px 0 18px}
+.sd-why{font-size:17.5px;color:var(--muted);max-width:62ch}
+.who{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:12px}
+.who li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:12px;align-items:start;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:15.5px}
+.who li svg{width:24px;height:22px;margin-top:1px}
+.step .when{display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:3px 9px;border-radius:999px;margin-bottom:10px}
+.sec-head .sub{color:var(--muted);font-size:15.5px}
+@media (max-width:980px){ .sd-two{grid-template-columns:1fr} }
+
+/* ---------- footer additions + mobile booking bar ---------- */
+footer{padding-block:56px 36px}
+.foot-cta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px 32px;padding-bottom:44px;margin-bottom:52px;border-bottom:1px solid var(--line)}
+.foot-cta p{font-family:var(--f-display);font-weight:600;font-size:clamp(20px,2.2vw,27px);line-height:1.3;letter-spacing:-.01em;max-width:34ch;color:var(--fg)}
+.socials{display:flex;gap:10px;margin-top:16px}
+.socials a{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--muted);box-shadow:inset 0 0 0 1px var(--line-strong);transition:color .25s,box-shadow .25s,transform .35s var(--ease)}
+.socials a:hover{color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);transform:translateY(-2px)}
+.socials svg{width:18px;height:18px;fill:currentColor}
+.phone-line{margin-top:10px;font-weight:600}
+.phone-line a{color:var(--fg)}
+.mbar{display:none}
+@media (max-width:760px){
+  .mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:45;display:flex;justify-content:center;align-items:center;gap:10px;background:var(--accent);color:var(--on-accent);font-weight:700;font-size:15.5px;padding:15px 20px;border-radius:14px;box-shadow:0 16px 34px -14px var(--shadow);transform:translateY(calc(100% + 40px));transition:transform .45s var(--ease)}
+  .mbar.show{transform:none}
+  footer{padding-bottom:112px}
+}
+@media (prefers-reduced-motion:reduce){
+  .fi1,.fi2,.fi3,.fi4,.fc-line,.fc-dot,.fc-area{animation:none!important;opacity:1;transform:none}
+}
+
+/* reveal */
+.rv{opacity:.3;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.enter{animation:fadeUp .8s var(--ease) both}
+
+/* ---------- responsive ---------- */
+@media (max-width:1060px){ .nav ul{gap:20px} .nav{gap:20px} }
+@media (max-width:980px){
+  .values{grid-template-columns:repeat(2,1fr)}
+  .values.three{grid-template-columns:1fr 1fr 1fr}
+  .svc-layout,.sd-grid,.contact-grid{grid-template-columns:1fr}
+  .svc-intro{position:static}
+  .cards{grid-template-columns:1fr 1fr}
+  .cards .card,.cards.five .card:nth-child(n+4),.cards.four .card{grid-column:auto}
+  .cards .card:last-child:nth-child(odd){grid-column:1/-1}
+  .steps{grid-template-columns:1fr 1fr;row-gap:48px;padding-top:0}
+  .steps::before,.steps .fill,.step .dot{display:none}
+  .foot{grid-template-columns:1fr 1fr}
+  .foot>div:first-child{grid-column:1/-1}
+}
+@media (max-width:860px){
+  .nav ul,.nav .btn{display:none}
+  .menu-btn{display:block}
+}
+@media (max-width:620px){
+  body{font-size:16px}
+  .brand .wm{width:112px}
+  .brand{gap:11px}
+  .values,.values.three,.sgrid,.two{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;row-gap:36px}
+  .svc .go{width:40px;height:40px}
+  .form .pair{grid-template-columns:1fr}
+  .founder{grid-template-columns:1fr}
+  .faq .a{padding-right:4px}
+  .hero-cta .btn,.cta .row .btn{flex:1 1 auto;justify-content:center}
+  .foot{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .marquee-track{animation:none}
+  .rv{opacity:1;transform:none}
+}
+</style>
+
+<!-- logo sprite -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--logo-hi)"/><stop offset="1" style="stop-color:var(--logo-lo)"/></linearGradient>
+    <linearGradient id="lgb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--band-logo-hi)"/><stop offset="1" style="stop-color:var(--band-logo-lo)"/></linearGradient>
+    <symbol id="mk" viewBox="0 0 267 242"><circle cx="30" cy="212" r="30"/><path d="M53 128 93 78 160 242H105Z"/><path d="M97 0h53l117 242h-57Z"/></symbol>
+    <symbol id="wmk" viewBox="-3 -3 296 30"><path pathLength="1" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="miter" stroke-linecap="square" d="M0 24 10 0 20 24M38 24V0l10 16L58 0v24M76 24V0h10a6 6 0 0 1 0 12H76M110 0v24h15M143 0v24M161 0l10 24 10-24M199 24 209 0l10 24M237 0h20M247 0v24M290 0h-15v24h15M275 12h13"/></symbol>
+  </defs>
+</svg>
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="Amplivate home">
+      <svg class="mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+      <svg class="wm draw" viewBox="-3 -3 296 30" aria-hidden="true"><use href="#wmk"/></svg>
+    </a>
+    <div class="tools">
+      <nav class="nav" aria-label="Main">
+        <ul>
+          <li><a href="#services" data-nav="services">Services</a></li>
+          <li><a href="#work" data-nav="work">Work</a></li>
+          <li><a href="#about" data-nav="about">About</a></li>
+          <li><a href="#contact" data-nav="contact">Contact</a></li>
+        </ul>
+        <a class="btn btn-primary" href="#strategy-call">Book a Free Strategy Call</a>
+      </nav>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <a class="big" href="#home">Home</a>
+  <a class="big" href="#services">Services</a>
+  <a class="big" href="#work">Work</a>
+  <a class="big" href="#about">About</a>
+  <a class="big" href="#faqs">FAQs</a>
+  <a class="big" href="#contact">Contact</a>
+  <a class="btn btn-primary" href="#strategy-call">Book a Free Strategy Call <span class="arr">→</span></a>
+  <div class="lockup">
+    <svg class="mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+    <svg class="wm" viewBox="-3 -3 296 30" aria-hidden="true"><use href="#wmk"/></svg>
+    <span class="rule"></span>
+    <span class="tl">Amplify Reach. Elevate Business.</span>
+  </div>
+</div>
+
+<div class="veil" id="veil" aria-hidden="true"><svg class="mark mark-band" viewBox="0 0 267 242"><use href="#mk"/></svg></div>
+
+<main id="main">
+
+<!-- ================= HOME ================= -->
+<div class="page" data-page="home">
+  <section class="hero">
+    <canvas id="net" aria-hidden="true"></canvas>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1><span class="hero-eyebrow">Local SEO &amp; digital marketing<span class="sep"> · </span><span class="loc">Based in West Sussex</span></span><span class="ln"><span class="w">Amplify reach,</span></span> <span class="ln"><span class="w"><em>Elevate</em> business</span></span></h1>
+        <p class="hero-sub lead">Bespoke SEO, social media, landing pages and AI-powered follow-up, managed by people who look at your results, not just report them.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary mag" href="#strategy-call">Book a Free Strategy Call <span class="arr">→</span></a>
+          <a class="btn btn-ghost" href="#services">View Services</a>
+        </div>
+        <ul class="promise">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>No long-term contracts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Plain-English monthly reports</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>You deal directly with the person doing the work</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Replies within one working day</li>
+        </ul>
+      </div>
+      <div class="feed" aria-hidden="true">
+        <div class="feed-head">
+          <svg class="mark" viewBox="0 0 267 242"><use href="#mk"/></svg>
+          <span>What your week could look like</span>
+          <em>Example</em>
+        </div>
+        <div class="feed-chart">
+          <div class="fc-lbl"><span>Enquiries</span><b>↑</b></div>
+          <svg viewBox="0 0 300 70" preserveAspectRatio="none"><path class="fc-area" d="M0 62 C40 60 60 58 90 52 S150 46 180 34 S240 20 300 6 V70 H0Z"/><path class="fc-line" pathLength="1" d="M0 62 C40 60 60 58 90 52 S150 46 180 34 S240 20 300 6"/><circle class="fc-dot" cx="300" cy="6" r="4.5"/></svg>
+        </div>
+        <ul class="feed-list">
+          <li class="fi fi1"><span class="fic"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></span><span class="ft"><b>Ranking #1 on Google Maps</b><small>for "plumber near me"</small></span><span class="fr"><s>#7</s> #1</span></li>
+          <li class="fi fi2"><span class="fic"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.4L12 17.8 5.4 21.8l1.8-7.4L1.5 9.5 9 8.9z"/></svg></span><span class="ft"><b>New 5-star review</b><small>Asked automatically after the job</small></span><span class="fst"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.4L12 17.8 5.4 21.8l1.8-7.4L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.4L12 17.8 5.4 21.8l1.8-7.4L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.4L12 17.8 5.4 21.8l1.8-7.4L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.4L12 17.8 5.4 21.8l1.8-7.4L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.4L12 17.8 5.4 21.8l1.8-7.4L1.5 9.5 9 8.9z"/></svg></span></li>
+          <li class="fi fi3"><span class="fic"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1z"/></svg></span><span class="ft"><b>Missed call, now booked</b><small>Texted back in seconds</small></span><span class="fok">Booked</span></li>
+          <li class="fi fi4"><span class="fic"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3z" fill="none" stroke="currentColor" stroke-width="2"/><path d="m3 6 9 7 9-7" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="ft"><b>New website enquiry</b><small>From your services page</small></span><span class="fnew">New</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wave-wrap" aria-hidden="true"><canvas id="wave"></canvas></div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="mq"></div></div>
+
+  <section class="sec band-grey" aria-label="Why Amplivate">
+    <div class="wrap">
+      <div class="values">
+        <article class="val" data-rv><h3>Bespoke</h3><p>Every strategy starts with what's happening in your market and who you're actually competing with.</p></article>
+        <article class="val" data-rv><h3>Transparent</h3><p>Clear pricing agreed upfront with no hidden line items, and monthly reports that explain what happened in plain English.</p></article>
+        <article class="val" data-rv><h3>Practical</h3><p>AI used where it genuinely helps: automating repetitive jobs like review follow-up and first replies, so time goes on the decisions that need a person.</p></article>
+        <article class="val" data-rv><h3>Direct</h3><p>Small by design. You work directly with the person managing your account, from the first call onwards.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap svc-layout">
+      <div class="svc-intro" data-rv>
+        <span class="eyebrow">What we do</span>
+        <h2>Core services, plus the AI tools that used to be out of reach.</h2>
+        <a class="textlink" href="#services">See full details on Services <span class="arr">→</span></a>
+        <div class="svc-preview" id="homePreview" aria-hidden="true"></div>
+      </div>
+      <div id="homeSvc"></div>
+    </div>
+  </section>
+
+  <section class="sec band-grey">
+    <div class="wrap">
+      <div class="sec-head" data-rv>
+        <span class="eyebrow">How we work</span>
+        <h2>Four steps. No surprises in between.</h2>
+      </div>
+      <ol class="steps" style="--n:4">
+        <li class="fill" aria-hidden="true"></li>
+        <li class="step" data-rv><span class="dot"></span><span class="num">01</span><h3>Discovery</h3><p>We start with a real conversation about your goals, your customers, and what isn't working yet.</p></li>
+        <li class="step" data-rv><span class="dot"></span><span class="num">02</span><h3>Strategy</h3><p>From there, a plan specific to your market: which services matter first, what a realistic timeline looks like, and what success looks like for you.</p></li>
+        <li class="step" data-rv><span class="dot"></span><span class="num">03</span><h3>Implementation</h3><p>SEO, your website, social media and automations built and set live, with you kept in the loop at every stage.</p></li>
+        <li class="step" data-rv><span class="dot"></span><span class="num">04</span><h3>Growth</h3><p>Results get tracked, reported honestly, and the strategy adjusts as your business and your market change. This doesn't stop once the site's live.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec meet-sec">
+    <div class="wrap">
+      <div class="meet" data-rv>
+        <div class="meet-av"><img src="data:image/jpeg;base64,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" alt="Charlie, founder of Amplivate" width="296" height="296"></div>
+        <div class="meet-txt">
+          <span class="eyebrow">Who you'll work with</span>
+          <h2>You'll deal directly with Charlie, the person doing the work.</h2>
+          <p>No account managers and no hand-offs. The person on your strategy call is the one running your campaigns, building your site and answering your emails.</p>
+          <a class="textlink" href="#about">More about Amplivate <span class="arr">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="work-head" data-rv>
+        <div class="sec-head">
+          <span class="eyebrow">Our work</span>
+          <h2>A look at what we build.</h2>
+        </div>
+        <p class="note">Concept projects showing our approach. Real case studies will replace them as client projects launch.</p>
+      </div>
+      <div class="cards" id="homeWork"></div>
+      <div class="work-more"><a class="btn btn-ghost" href="#work">See more work <span class="arr">→</span></a></div>
+    </div>
+  </section>
+
+  <section class="sec cta" data-cta>
+    <svg class="wm-big mark mark-band" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+    <div class="wrap">
+      <h2 data-rv>Ready to grow your business?</h2>
+      <p data-rv>Book a free strategy call — no pressure, no scripted pitch, just a conversation about what's possible for your business and what it would cost to get there.</p>
+      <div class="row" data-rv>
+        <a class="btn btn-band mag" href="#strategy-call">Book Your Free Strategy Call <span class="arr">→</span></a>
+        <a class="btn btn-band-line" href="#contact">Contact Amplivate</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= SERVICES ================= -->
+<div class="page" data-page="services" hidden>
+  <header class="phead">
+    <svg class="bgmark mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+    <div class="wrap">
+      <span class="eyebrow">Services</span>
+      <h1>Everything a local business needs to grow, done properly.</h1>
+      <p class="lead">Every service below can stand alone or work together — book a free strategy call and we'll put together a plan around what your business needs.</p>
+    </div>
+  </header>
+  <section class="sec">
+    <div class="wrap">
+      <div class="sgroup">
+        <div class="sgroup-head" data-rv><h2>Visibility &amp; Marketing</h2></div>
+        <div class="sgrid" id="sgVM"></div>
+      </div>
+      <div class="sgroup">
+        <div class="sgroup-head" data-rv><h2>AI Solutions</h2><span class="chip">AI</span></div>
+        <div class="sgrid" id="sgAI"></div>
+      </div>
+    </div>
+  </section>
+  <section class="sec cta" data-cta>
+    <svg class="wm-big mark mark-band" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+    <div class="wrap">
+      <h2 data-rv>Ready to grow your business?</h2>
+      <p data-rv>Book a free strategy call — no pressure, no scripted pitch, just a conversation about what's possible for your business and what it would cost to get there.</p>
+      <div class="row" data-rv>
+        <a class="btn btn-band mag" href="#strategy-call">Book Your Free Strategy Call <span class="arr">→</span></a>
+        <a class="btn btn-band-line" href="#contact">Contact Amplivate</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= SERVICE DETAIL (filled by script) ================= -->
+<div class="page" data-page="service" id="serviceDetail" hidden></div>
+
+<!-- ================= WORK ================= -->
+<div class="page" data-page="work" hidden>
+  <header class="phead">
+    <svg class="bgmark mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+    <div class="wrap">
+      <span class="eyebrow">Our work</span>
+      <h1>A look at what we build.</h1>
+      <p class="lead">Amplivate is a new agency — the projects below are concept work showing the kind of thing we build, not live client results yet. They'll be replaced with real case studies, including measurable outcomes, as client projects launch.</p>
+    </div>
+  </header>
+  <section class="sec">
+    <div class="wrap"><div class="cards four" id="allWork"></div></div>
+  </section>
+  <section class="sec cta" data-cta>
+    <svg class="wm-big mark mark-band" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+    <div class="wrap">
+      <h2 data-rv>Want to be one of the first real case studies?</h2>
+      <p data-rv>We're taking on a small number of founding clients. You'll get extra hands-on attention and founding-client terms, and in return we'll ask for an honest review and permission to write up your results.</p>
+      <div class="row" data-rv>
+        <a class="btn btn-band mag" href="#strategy-call">Book a Free Strategy Call <span class="arr">→</span></a>
+        <a class="btn btn-band-line" href="#contact">Contact Amplivate</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<div class="page" data-page="about" hidden>
+  <header class="phead">
+    <svg class="bgmark mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+    <div class="wrap">
+      <span class="eyebrow">About</span>
+      <h1>An agency, built the way we'd want to hire one.</h1>
+    </div>
+  </header>
+  <section class="sec">
+    <div class="wrap two">
+      <div data-rv><h2>Why Amplivate exists</h2><p>Too often we see local business marketing sold as a package instead of built as a strategy — the same SEO checklist, the same templated website, the same generic social posts, regardless of what the business actually needs. Amplivate exists to do it differently: work built around the business in front of us, priced fairly, and reported on honestly.</p></div>
+      <div data-rv>
+        <h2>Meet the founder</h2>
+        <div class="founder">
+          <div class="monogram"><img src="data:image/jpeg;base64,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" alt="Charlie, founder of Amplivate" width="296" height="296"></div>
+          <div>
+            <h3>Charlie</h3>
+            <div class="role">Founder &amp; Managing Director</div>
+            <p class="bio">I started Amplivate to give local businesses the kind of joined-up marketing that usually needs a much bigger budget: a Google presence that brings in enquiries, a website built to convert, and simple automations that stop leads slipping through the cracks. Based in West Sussex and working with businesses across the UK, I'm the person running your campaigns, building your site and answering your emails.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sec band-grey">
+    <div class="wrap" style="display:grid;gap:26px">
+      <span class="eyebrow" data-rv>Our mission</span>
+      <p class="mission" data-rv>To give local UK businesses access to the kind of strategic, bespoke marketing usually reserved for companies with much bigger budgets — without the bloated retainers or the corporate fluff.</p>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head" data-rv><span class="eyebrow">Values</span></div>
+      <div class="values three">
+        <article class="val" data-rv><h3>Honesty over hype</h3><p>No invented urgency, no inflated promises, no results we can't stand behind.</p></article>
+        <article class="val" data-rv><h3>Fit over templates</h3><p>A plan built around your business and the market you actually compete in.</p></article>
+        <article class="val" data-rv><h3>Access over hierarchy</h3><p>You deal directly with the person doing the work.</p></article>
+      </div>
+    </div>
+  </section>
+  <section class="sec band-grey">
+    <div class="wrap two" style="row-gap:56px">
+      <div data-rv><h2>What makes us different</h2><p>Most agencies scale by adding account managers between you and the work. Amplivate is built to stay small on purpose — every client works directly with the person running their campaigns, building their site, and answering their emails.</p></div>
+      <div data-rv><h2>How we help businesses grow</h2><p>Through the work that actually moves the needle for local businesses — search visibility, a Google Business Profile that converts, a website built to sell, and social media that keeps you visible — plus practical AI tools that handle repetitive follow-up so nothing falls through the cracks.</p></div>
+      <div data-rv><h2>Vision for the future</h2><p>As Amplivate grows, so does this: a client dashboard for real-time reporting, AI tools clients can manage themselves, and resources for local businesses trying to understand their own marketing. Added because it's useful, not because it looks impressive.</p></div>
+      <div data-rv class="lockup" style="align-self:center">
+        <svg class="mark" viewBox="0 0 267 242" aria-hidden="true" style="width:70px;height:67px"><use href="#mk"/></svg>
+        <svg class="wm" viewBox="-3 -3 296 30" aria-hidden="true" style="width:240px"><use href="#wmk"/></svg>
+        <span class="rule"></span>
+        <span class="tl">Amplify Reach. Elevate Business.</span>
+      </div>
+    </div>
+  </section>
+  <section class="sec cta" data-cta>
+    <svg class="wm-big mark mark-band" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+    <div class="wrap">
+      <h2 data-rv>Let's talk about your business.</h2>
+      <div class="row" data-rv><a class="btn btn-band mag" href="#strategy-call">Book a Free Strategy Call <span class="arr">→</span></a></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= FAQS ================= -->
+<div class="page" data-page="faqs" hidden>
+  <header class="phead">
+    <svg class="bgmark mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+    <div class="wrap">
+      <span class="eyebrow">FAQs</span>
+      <h1>Questions worth answering upfront.</h1>
+    </div>
+  </header>
+  <section class="sec"><div class="wrap"><div class="faq-list" id="faqList"></div></div></section>
+  <section class="sec cta" data-cta>
+    <svg class="wm-big mark mark-band" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+    <div class="wrap">
+      <h2 data-rv>Still have a question?</h2>
+      <div class="row" data-rv><a class="btn btn-band mag" href="#contact">Contact Amplivate <span class="arr">→</span></a></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= CONTACT ================= -->
+<div class="page" data-page="contact" hidden>
+  <header class="phead">
+    <svg class="bgmark mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+    <div class="wrap">
+      <span class="eyebrow">Contact</span>
+      <h1>Let's grow your business together.</h1>
+      <p class="lead">Book a free strategy call, or send a message below — no pressure, no scripted pitch.</p>
+    </div>
+  </header>
+  <section class="sec">
+    <div class="wrap contact-grid">
+      <div data-rv>
+        <form class="form" id="cform" novalidate>
+          <div class="pair">
+            <div class="fld"><label for="cf-name">Name</label><input id="cf-name" name="name" autocomplete="name" required><span class="err"></span></div>
+            <div class="fld"><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
+          </div>
+          <div class="fld"><label for="cf-biz">Business name</label><input id="cf-biz" name="business" autocomplete="organization"></div>
+          <div class="fld"><label for="cf-topic">What are you enquiring about?</label>
+            <select id="cf-topic" name="topic">
+              <option>Free strategy call</option>
+              <option selected>General enquiry</option>
+              <option>Local SEO</option>
+              <option>Google Business Profile Optimisation</option>
+              <option>Website Design &amp; Landing Page Build</option>
+              <option>Social Media Management</option>
+              <option>Missed-Call Text Back</option>
+              <option>Google Review Follow Up</option>
+            </select>
+          </div>
+          <div class="fld"><label for="cf-msg">Message</label><textarea id="cf-msg" name="message" required></textarea><span class="err"></span></div>
+          <button class="btn btn-primary" type="submit">Send Message <span class="arr">→</span></button>
+        </form>
+        <div class="done" id="cdone" hidden>
+          <h3>Your message is ready.</h3>
+          <p>Copy it below and email it to <strong>hello@amplivate.co.uk</strong>. We aim to reply within one working day.</p>
+          <pre id="cpre"></pre>
+          <div class="row">
+            <button class="btn btn-primary" type="button" id="cCopyMsg">Copy message</button>
+            <a class="btn btn-ghost" id="cMailto" href="mailto:hello@amplivate.co.uk">Open in email app</a>
+            <button class="copy" type="button" id="cEdit">Edit message</button>
+          </div>
+        </div>
+      </div>
+      <aside class="aside">
+        <div class="sc" id="sc-block" data-rv>
+          <svg class="wm-big mark mark-band" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+          <span class="eyebrow" style="color:var(--band-muted)">Strategy call</span>
+          <h3>Book a Free Strategy Call</h3>
+          <p>No pressure, no scripted pitch, just a conversation about what's possible for your business and what it would cost to get there.</p>
+          <button class="btn btn-band" type="button" id="scBtn">Request a call <span class="arr">→</span></button>
+        </div>
+        <div class="info" data-rv>
+          <div class="it"><span class="k">Email</span><div class="mail"><span class="v">hello@amplivate.co.uk</span><button class="copy" type="button" data-copy="hello@amplivate.co.uk">Copy</button></div></div>
+          <div class="it"><span class="k">Location</span><span class="v">Based in West Sussex, working UK&#8209;wide</span></div><!--PHONE_INFO--><!--/PHONE_INFO-->
+          <div class="it"><span class="k">Response time</span><span class="v">We aim to reply within one working day.</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PRIVACY ================= -->
+<div class="page" data-page="privacy" hidden>
+  <header class="phead"><svg class="bgmark mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg><div class="wrap"><span class="eyebrow">Legal</span><h1>Privacy Policy</h1><p class="crumb">Last updated: 30 September 2026</p></div></header>
+  <section class="sec"><div class="wrap prose">
+    <h2>Who we are</h2><p>Amplivate ("we", "us", "our") is a digital marketing agency based in West Sussex and operating UK-wide. This policy explains what personal data we collect through this website, why, and what rights you have over it. Our contact email is hello@amplivate.co.uk.</p>
+    <h2>What we collect</h2><ul><li>Information you submit through our contact form: name, email address, business name, and message content.</li><li>Basic technical data collected automatically, such as pages visited, if analytics are enabled.</li></ul>
+    <h2>Why we collect it</h2><p>We use contact form submissions to respond to enquiries and provide quotes or strategy calls. We do not sell your data to third parties.</p>
+    <h2>Legal basis</h2><p>We process contact form data on the basis of legitimate interest (responding to a direct enquiry you've made) under UK GDPR.</p>
+    <h2>How long we keep it</h2><p>We keep contact form submissions for up to 12 months and then delete them, unless you become a client, in which case they form part of your client records.</p>
+    <h2>Third parties</h2><p>This site is hosted on GitHub Pages. Contact form submissions are processed via Web3Forms, which forwards them to our inbox. We do not share your data beyond what's needed to respond to your enquiry.</p>
+    <h2>Cookies</h2><p>This site does not set any cookies. We use your browser's local storage to remember whether you chose light or dark mode. This stays on your device and is never sent to us. We do not use analytics, advertising, or tracking cookies at this time. If that changes, this policy will be updated to reflect it.</p>
+    <h2>Your rights</h2><p>Under UK GDPR, you have the right to access, correct, or request deletion of your personal data. To exercise these rights, contact hello@amplivate.co.uk.</p>
+  </div></section>
+</div>
+
+<!-- ================= TERMS ================= -->
+<div class="page" data-page="terms" hidden>
+  <header class="phead"><svg class="bgmark mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg><div class="wrap"><span class="eyebrow">Legal</span><h1>Terms of Service</h1><p class="crumb">Last updated: 30 September 2026</p></div></header>
+  <section class="sec"><div class="wrap prose">
+    <h2>Services</h2><p>Amplivate provides digital marketing services including SEO, Google Business Profile management, website design, branding, social media management, and AI-powered tools, as agreed with each client individually.</p>
+    <h2>Plans and billing</h2><p>Monthly plans are billed monthly in advance by invoice. Plans operate on a month-to-month basis with no long-term contract unless otherwise agreed in writing.</p>
+    <h2>Cancellation</h2><p>You can cancel a monthly plan at any time by giving one month's notice by email to hello@amplivate.co.uk.</p>
+    <h2>Website ownership</h2><p>For website design projects, ownership of the final site, its content, and any associated domain transfers to the client on full payment, unless otherwise agreed.</p>
+    <h2>Limitation of liability</h2><p>While we work to agreed strategies and industry good practice, we cannot guarantee specific search rankings, enquiry volumes, or business outcomes, as these depend on factors outside our control, including third-party platforms like Google.</p>
+    <h2>Contact</h2><p>Questions about these terms can be sent to hello@amplivate.co.uk.</p>
+  </div></section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cta" id="footCta">
+      <p>Ready when you are. Book a free strategy call and we'll talk through what's possible for your business.</p>
+      <a class="btn btn-primary" href="#strategy-call">Book a Free Strategy Call <span class="arr">→</span></a>
+    </div>
+    <div class="foot">
+      <div>
+        <a class="lockup" href="#home" aria-label="Amplivate home">
+          <svg class="mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+          <svg class="wm" viewBox="-3 -3 296 30" aria-hidden="true"><use href="#wmk"/></svg>
+          <span class="rule"></span>
+          <span class="tl">Amplify Reach. Elevate Business.</span>
+        </a>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faqs">FAQs</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <div class="mail"><span>hello@amplivate.co.uk</span><button class="copy" type="button" data-copy="hello@amplivate.co.uk">Copy</button></div>
+        <!--PHONE_FOOT--><!--/PHONE_FOOT-->
+        <p class="muted">Based in West Sussex<br>Working UK-wide</p>
+        <!--SOCIALS-->
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Amplivate. All rights reserved.</span>
+      <nav aria-label="Legal"><a href="#privacy">Privacy Policy</a><a href="#terms">Terms</a></nav>
+    </div>
+  </div>
+</footer>
+
+<a class="mbar" id="mbar" href="#strategy-call">Book a free strategy call <span class="arr">→</span></a>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const css = n => getComputedStyle(root).getPropertyValue(n).trim();
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  const MK = cls => `<svg class="mark ${cls||''}" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>`;
+  const STAR = '<svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.4L12 17.8 5.4 21.8l1.8-7.4L1.5 9.5 9 8.9z"/></svg>';
+
+  /* ---------------- content ---------------- */
+  const SERVICES = [
+    {slug:'local-seo', group:'vm', name:'Local SEO', tag:'Rank higher for the searches that bring customers through the door.',
+     overview:'We optimise your website, on-page content, local citations and Google Business Profile structure so you show up for the searches that matter in your area. Built for businesses competing locally, or taking local SEO seriously for the first time.',
+     benefits:['Higher visibility in local search results and Google Maps','More enquiries from people who are ready to buy','A clear picture of which searches actually bring you customers'],
+     included:['Technical SEO audit and fixes','On-page optimisation for local search terms','Local citation building and clean-up','Monthly ranking and traffic reporting'],
+     steps:[['Audit','We assess your current rankings, technical issues, and what competitors are doing.'],['Build','Fixes, content, and citations go in, prioritised by impact.'],['Track','Rankings and traffic are monitored monthly, and the plan adjusts.']],
+     faqs:[['How long does local SEO take to work?','Weeks to months rather than days — it depends on how competitive your market is and the current state of your site.'],['Do I need a new website for local SEO?','Not always. Local SEO can work on your existing site; we\'ll assess whether your current setup is holding you back.']]},
+    {slug:'google-business-profile', group:'vm', name:'Google Business Profile Optimisation', tag:'Turn your Google listing into your strongest source of new enquiries.',
+     overview:'We fully optimise your Google Business Profile — categories, service areas, photos, posts, and review management — so it works as hard as your website does. Best suited to businesses that already have a Google listing but have never had it properly set up.',
+     benefits:['Better visibility in the Google Maps \'local pack\'','A profile that answers customer questions before they even call','More clicks, calls, and direction requests'],
+     included:['Full profile setup and optimisation','Category, service, and description review','Photo and post management','Review monitoring and response support'],
+     steps:[['Review','We check what\'s currently set up, what\'s missing, and what\'s actively working against you.'],['Optimise','Categories, services, descriptions, and photos are all brought up to a standard that converts.'],['Maintain','Ongoing posts, updates, and review responses keep the profile active — Google rewards profiles that stay current.']],
+     faqs:[['Can you manage my Google Business Profile if I already have one?','Yes — most of our work is improving existing profiles rather than starting from scratch.'],['Do you respond to reviews for me?','We can — either drafting responses for your approval or handling it directly, depending on what you\'d prefer.']]},
+    {slug:'website-design', group:'vm', name:'Website Design & Landing Page Build', tag:'A site built to convert, not just to look good in a portfolio.',
+     overview:'A website that looks nice but doesn\'t generate enquiries isn\'t doing its job. We design sites around what a visitor needs to see to pick up the phone or fill in a form — built properly, not from a generic template.',
+     benefits:['A site built around your actual customers, not a stock template','Fast, mobile-first, and built to convert','Easy for you to update yourself, no developer needed'],
+     included:['Custom design based on your business and market','Mobile-first, fast-loading build','Basic on-page SEO foundation','Content management system so you can edit it yourself'],
+     steps:[['Plan','We work out what the site needs to do for your business before any design starts.'],['Design & Build','A site designed around your business, built properly rather than assembled from a generic template.'],['Launch & Train','Once it\'s live, we show you how to update it yourself — no waiting on a developer for small changes.']],
+     faqs:[['Can I update the website myself once it\'s live?','Yes — every site we build comes with a content management system so you can edit text, images, and pages without touching code.'],['How long does a new website take?','It depends on scope and how quickly content is ready on your side — we\'ll give you a realistic estimate during the strategy call.']]},
+    {slug:'social-media-management', group:'vm', name:'Social Media Management', tag:'Consistent, on-brand posting across your channels with active replies, so your business stays visible between jobs.',
+     overview:'Your business keeps an active social presence even when you\'re not posting yourself. We plan, create, and publish content that keeps your profiles current and on-brand, so social media comes off your to-do list.',
+     benefits:['Consistent posting','On-brand content','Better visibility','Monthly reporting','Time back for you'],
+     included:['Content calendar','Post design and copywriting','Scheduling','Light community management','Monthly performance report'],
+     steps:[['Discovery call','Learning your brand, audience, and goals.'],['Content plan','Monthly posts approved in advance.'],['Creation','Design, writing, and post creation.'],['Publishing','Scheduled posts go live automatically.'],['Reporting','Monthly performance check-in and planning.']],
+     faqs:[['How many posts do I get each month?','That depends on your plan — we\'ll agree a posting frequency during onboarding and stick to it.'],['Do I need to approve posts before they go live?','Yes, you\'ll get a content calendar to review each month before anything is published.']]},
+    {slug:'missed-call-text-back', group:'ai', name:'Missed-Call Text Back', tag:'Automation that follows up missed calls for you when you can\'t get to the phone.',
+     overview:'Never lose a job to a missed call. The second a call goes unanswered, your customer gets an instant text back with a way to book, so the enquiry doesn\'t go to a competitor.',
+     benefits:['Fewer lost leads','Instant response','No extra effort'],
+     included:['Automatic text-back for missed calls','Custom message written for your business','Lead capture','Monthly reporting'],
+     steps:[['Setup','We connect the service to your business number.'],['Customise','You approve the text message template.'],['Go live','Missed calls trigger an instant text automatically.'],['Review','Monthly reports show leads recovered.']],
+     faqs:[['What does the customer receive when I miss their call?','An instant text letting them know you\'ll be in touch, with an option to leave details or book in directly.'],['Does this work with my existing business number?','Yes, it connects to the number you already use, so there\'s nothing new for customers to learn.']]},
+    {slug:'google-review-follow-up', group:'ai', name:'Google Review Follow Up', tag:'Automatic, on-brand follow-up that gets more of your happy customers leaving reviews.',
+     overview:'Most happy customers never leave a review, not because they don\'t want to, but because nobody asked them at the right time. We set up automatic, on-brand follow-up that asks at the right moment — without sounding like a robot.',
+     benefits:['More reviews from customers who were already happy','Follow-up that happens automatically, with no manual chasing','Requests and responses that sound like your business, not a template'],
+     included:['Automated review request follow-up','On-brand messaging tailored to your business','Monthly reporting on review volume and rating'],
+     steps:[['Set up','Follow-up messaging is written in your voice and connected to however you currently manage customers.'],['Automate','Requests go out automatically at the right moment after a job or purchase — no manual chasing.'],['Monitor','Volume and sentiment are tracked monthly.']],
+     faqs:[['Will this feel like spam to my customers?','No — requests are timed and worded to feel like a genuine follow-up, not a mass blast.'],['What happens if a customer leaves negative feedback?','Negative feedback is flagged to you immediately, so you can respond fast, put things right, and keep the customer happy.']]}
+  ];
+  const EXTRA = {
+    'local-seo':{
+      why:'When someone needs a local service, they search for it and pick from the first few businesses Google shows them, usually in the map results. If you\'re not there, those customers go to whoever is. Local SEO is how you earn that spot: a technically sound website, content that matches what people in your area actually search for, and consistent business details across the web so Google trusts you.',
+      who:['Trades and local service businesses competing for "near me" searches','Businesses that rely on customers from a particular town or area','Anyone whose competitors keep appearing above them on Google Maps'],
+      when:['Week 1','Weeks 2–4','Every month']},
+    'google-business-profile':{
+      why:'For many local searches, your Google Business Profile is the first thing a customer sees, often before they ever reach your website. A complete, active profile with the right categories, real photos and recent reviews gives people the confidence to call, and helps Google show you to more of them.',
+      who:['Businesses with a Google listing that has never been properly set up','Anyone getting fewer calls from Google Maps than they should','Businesses with several services or service areas to show off'],
+      when:['Week 1','Week 2','Ongoing']},
+    'website-design':{
+      why:'Your website is where people decide whether to get in touch. If it\'s slow, awkward on a phone, or doesn\'t make the next step obvious, visitors leave, however much you spend getting them there. A site built around your customers turns more of those visits into calls, forms and bookings.',
+      who:['Businesses whose current site looks dated or rarely brings in enquiries','New businesses that need a proper site from day one','Anyone sending traffic to pages that don\'t convert'],
+      when:['Week 1','Build phase','Launch']},
+    'social-media-management':{
+      why:'Customers often check your social profiles before they call, to see that you\'re active, trustworthy and do good work. Regular, on-brand posts keep you front of mind between jobs and show the quality of what you do, without you having to find the time to post yourself.',
+      who:['Businesses that know they should post but never find the time','Anyone whose social profiles haven\'t been updated in months','Businesses that want a consistent presence without hiring in-house'],
+      when:['Week 1','Week 2','Weeks 3–4','Ongoing','Monthly']},
+    'missed-call-text-back':{
+      why:'When a call goes unanswered, most people don\'t leave a voicemail. They ring the next business on the list. An instant text back keeps the conversation going, gives the customer an easy way to book, and means a busy day on the job doesn\'t cost you work.',
+      who:['Trades and service businesses who can\'t answer the phone mid-job','Busy practices and shops where calls get missed at peak times','Anyone who has lost a job because the customer rang someone else'],
+      when:['Week 1','Week 1','Week 2','Monthly']},
+    'google-review-follow-up':{
+      why:'Reviews play a big part in whether a customer picks you, and they help your Google ranking too. Most happy customers are willing to leave one; they just need asking at the right moment. Automating that ask means your review count grows steadily without you chasing anyone.',
+      who:['Businesses with happy customers but only a handful of Google reviews','Anyone who forgets to ask for reviews at the end of a job','Businesses whose competitors have far more reviews than they do'],
+      when:['Week 1','Week 2','Monthly']}
+  };
+  SERVICES.forEach(s => Object.assign(s, EXTRA[s.slug]));
+  const WORK = [
+    {tag:'Concept · Local SEO', title:'Rebuilding search visibility for an independent HVAC company', desc:'A ground-up Google Business Profile and local SEO structure for a trades business competing against national franchises on search — the kind of groundwork most local businesses are missing.', viz:'serp'},
+    {tag:'Concept · Branding & Website', title:'A new identity and site for a boutique fitness studio', desc:'Brand identity and a conversion-focused website built around class bookings and trial sign-ups, replacing a generic template site that wasn\'t built to sell anything.', viz:'site'},
+    {tag:'Concept · AI Solutions', title:'AI review follow-up for a multi-location practice', desc:'Automated, on-brand review requests and a first-response chatbot designed to handle the repetitive enquiries that were previously eating up front-desk time.', viz:'chat'},
+    {tag:'Concept · Website Design', title:'A conversion-focused rebuild for an independent dental practice', desc:'Replacing an outdated site with a fast, mobile-first build structured around booking enquiries rather than a static About page nobody reads.', viz:'phone'}
+  ];
+  const FAQS = [
+    ['SEO','Can you guarantee a number one ranking?','No, and any agency that promises this isn\'t being straight with you — nobody controls Google\'s algorithm. What we can guarantee is a properly executed strategy and honest reporting on what it\'s achieving.'],
+    ['Websites','Do I own my website once it\'s built?','Yes, completely. The site, the content, and the domain are yours — there\'s no dependency on us to keep it running.'],
+    ['Timelines','How quickly will I see results?','It depends on the service — SEO typically takes 8–12 weeks to show movement, while a new website or ad campaign can start generating enquiries within days of going live.'],
+    ['Reporting','How will I know what I\'m getting for my money?','You\'ll get monthly reporting written in plain English, not a dashboard full of numbers with no explanation. If something isn\'t working, we\'ll tell you.'],
+    ['AI tools','Is my customer data safe with the AI tools you use?','Yes — the tools we use are limited to your own business data, such as your services and review requests, and don\'t share it beyond what\'s needed to do the job.'],
+    ['Pricing','Are there any hidden fees on top of the monthly plan?','No. Everything is covered in the fixed monthly price we agree upfront, and anything extra is always discussed and agreed with you first.'],
+    ['Contracts','Am I locked into a long contract?','No — our plans run monthly with no long-term tie-in. We\'d rather earn your business every month than lock you into a contract.'],
+    ['Support','Who do I actually speak to if I have a question?','The person doing the work — not a call centre or a rotating account manager. Direct access is part of how we operate.']
+  ];
+  const SHORT = {
+    'local-seo':'Rank higher for the searches that bring customers through the door.',
+    'google-business-profile':'Turn your Google listing into your strongest source of new enquiries.',
+    'website-design':'A site built to convert, not just to look good in a portfolio.',
+    'social-media-management':'Consistent, on-brand posting across your channels with active replies, so your business stays visible between jobs.',
+    'missed-call-text-back':'Automation that follows up missed calls for you when you can\'t get to the phone.',
+    'google-review-follow-up':'Automatic, on-brand follow-up that gets more of your happy customers leaving reviews.'
+  };
+
+  /* ---------------- builders ---------------- */
+  const vizHTML = v => ({
+    serp:'<div class="serp"><div class="row r1"><i></i><b></b><small>#1</small></div><div class="row r2"><i></i><b></b><small>#2</small></div><div class="row you"><i></i><b></b><small>You</small></div></div>',
+    site:'<div class="site"><div class="bar"><i></i><i></i><i></i></div><div class="pg"><div class="lines"><b></b><b></b><b></b><span class="pill">Book a trial</span></div><div class="img"></div></div></div>',
+    chat:'<div class="chat"><div class="bub me">Thanks for visiting today! Would you mind leaving us a quick review?</div><div class="bub">Of course, happy to!</div><div class="bub me">Here\'s the link<div class="stars">'+STAR.repeat(5)+'</div></div></div>',
+    ads:'<div class="ads"><div class="r waste"><div class="lbl"><span>Broad keywords</span><span>spend</span></div><div class="trk"><div class="fil"></div></div></div><div class="r good"><div class="lbl"><span>Emergency call-outs</span><span>spend</span></div><div class="trk"><div class="fil"></div></div></div></div>',
+    phone:'<div class="phone"><div class="ph-img"></div><div class="lines"><b></b><b></b><b></b></div><span class="pill">Book appointment</span></div>'
+  })[v];
+  const STARN = n => Array.from({length:n}, (_, i) => STAR.replace('<svg ', `<svg style="--i:${i}" `)).join('');
+  const HEART = '<path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.1 1.7-1.9 3.1-3.1 5.3-3.1 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/>';
+  const PHONE = '<path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1z"/>';
+  const calCells = (() => { const on = [1,3,5,8,10,13]; return Array.from({length:15}, (_, i) => { const k = on.indexOf(i); return k < 0 ? '<span class="c"></span>' : `<span class="c s" style="--i:${k}"></span>`; }).join(''); })();
+  const SVIZ = {
+    seo:`<div class="sv sv-seo"><div class="sbar cs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="typed">plumber near me</span><i class="caret"></i></div><div class="map cs"><i class="road r1"></i><i class="road r2"></i><i class="road r3"></i><span class="pin p1"></span><span class="pin p2"></span><span class="pin p3"></span><span class="ring"></span><span class="pin you"><b>1</b></span><span class="label s4">Your business</span></div></div>`,
+    gbp:`<div class="sv sv-gbp"><div class="prof cs s1"><div class="ph"><i></i><i></i><i></i></div><div class="nm"></div><div class="meta"></div><div class="stf">${STARN(5)}</div><div class="acts"><span style="--i:0">Call</span><span style="--i:1">Directions</span><span style="--i:2">Website</span></div></div><div class="gb cs"><span class="b" style="--h:44%;--i:0"><small>Call</small></span><span class="b" style="--h:70%;--i:1"><small>Map</small></span><span class="b" style="--h:92%;--i:2"><small>Web</small></span></div></div>`,
+    web:`<div class="sv sv-web"><div class="br cs"><div class="bbar"><i></i><i></i><i></i></div><div class="bnav s1"><svg class="mark" viewBox="0 0 267 242"><use href="#mk"/></svg><b></b><b></b><b></b></div><div class="bh"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i></div><div class="bimg"></div><span class="bbtn">Enquire now</span><span class="cur"><svg viewBox="0 0 16 18"><path d="M1 1v14l4-4 3 6 2.5-1.2-3-5.8H13z"/></svg></span><span class="toast s5">New enquiry ✓</span></div></div>`,
+    social:`<div class="sv sv-social"><div class="cal cs">${['M','T','W','T','F'].map(d => `<span class="dh">${d}</span>`).join('')}${calCells}</div><div class="post cs s3"><div class="im"></div><div class="rw"><svg viewBox="0 0 24 24">${HEART}</svg><b></b></div><div class="ln"></div><div class="ln" style="width:60%"></div>${[[-8,0],[10,1],[24,2]].map(([x,i]) => `<svg class="hz" viewBox="0 0 24 24" style="--i:${i};--x:${x}px">${HEART}</svg>`).join('')}</div></div>`,
+    mctb:`<div class="sv sv-mctb"><div class="ph2 cs"><div class="notif"><span class="ic"><svg viewBox="0 0 24 24">${PHONE}</svg></span><span>Missed call<small>New customer · just now</small></span></div><div class="msg out s3">Sorry we missed you! Tap here to book a time.</div><div class="msg in s4">Great, booked for Thursday.</div><span class="saved s5">✓ Lead saved</span></div></div>`,
+    rev:`<div class="sv sv-rev"><span class="chipd s1">✓ Job complete</span><div class="req s2">Thanks for choosing us! Would you mind leaving a quick review?</div><div class="big stf">${STARN(5)}</div><div class="rc cs s5"><span class="av"></span><div class="stf">${STARN(5)}<span class="tagn">New review</span></div><p>Really quick and friendly, would recommend.</p></div></div>`
+  };
+  const VZ = {'local-seo':'seo','google-business-profile':'gbp','website-design':'web','social-media-management':'social','missed-call-text-back':'mctb','google-review-follow-up':'rev'};
+  const card = w => `<article class="card playable" data-rv><div class="viz" aria-hidden="true">${vizHTML(w.viz)}</div><div class="body"><span class="tag">${esc(w.tag)}</span><h3>${esc(w.title)}</h3><p>${esc(w.desc)}</p></div></article>`;
+  $('#homeWork').innerHTML = WORK.slice(0,3).map(card).join('');
+  $('#allWork').innerHTML = WORK.map(card).join('');
+
+  const svcRow = s => `<a class="svc" href="#${s.slug}"><h3>${esc(s.name)}</h3><p>${esc(SHORT[s.slug])}</p><span class="go">${ARROW}</span></a>`;
+  $('#homeSvc').innerHTML =
+    `<div class="svc-group" data-rv><div class="svc-label">Visibility &amp; Marketing</div>${SERVICES.filter(s=>s.group==='vm').map(svcRow).join('')}</div>` +
+    `<div class="svc-group" data-rv><div class="svc-label">AI Solutions <span class="chip">AI</span></div>${SERVICES.filter(s=>s.group==='ai').map(svcRow).join('')}</div>`;
+
+  const sCard = s => `<a class="scard playable" href="#${s.slug}" data-rv><div class="sviz" aria-hidden="true">${SVIZ[VZ[s.slug]]}</div><div class="sbody">${MK('wmk')}<div class="top"><h3>${esc(s.name)}</h3><span class="go">${ARROW}</span></div><p>${esc(SHORT[s.slug])}</p><span class="more">Learn more →</span></div></a>`;
+  $('#homePreview').innerHTML = SERVICES.map((s, i) => `<div class="spv${i === 0 ? ' on' : ''}" data-i="${i}"><span class="spv-name">${esc(s.name)}</span>${SVIZ[VZ[s.slug]]}<span class="pbar"></span></div>`).join('');
+
+  $('#sgVM').innerHTML = SERVICES.filter(s=>s.group==='vm').map(sCard).join('');
+  $('#sgAI').innerHTML = SERVICES.filter(s=>s.group==='ai').map(sCard).join('');
+
+  $('#mq').innerHTML = (SERVICES.map(s => `<span>${esc(s.name)}${MK()}</span>`).join('')).repeat(2);
+
+  const faqHTML = (list, withCat) => list.map(f => {
+    const [cat,q,a] = withCat ? f : [null, f[0], f[1]];
+    return `<details class="faq" data-rv><summary><span class="q">${cat?`<span class="cat">${esc(cat)}</span>`:''}${esc(q)}</span><span class="pm" aria-hidden="true"></span></summary><p class="a">${esc(a)}</p></details>`;
+  }).join('');
+  $('#faqList').innerHTML = faqHTML(FAQS, true);
+
+  const TICK = MK();
+  function renderService(s){
+    const others = SERVICES.filter(o => o.slug !== s.slug).slice(0,3);
+    $('#serviceDetail').innerHTML = `
+      <header class="phead split">${MK('bgmark')}<div class="wrap"><div class="ph-text">
+        <p class="crumb"><a href="#services">Services</a><span>/</span><span>${s.group==='ai'?'AI Solutions':'Visibility &amp; Marketing'}</span></p>
+        <h1>${esc(s.name)}</h1><p class="lead">${esc(s.tag)}</p>
+        <div class="hero-cta" style="margin-top:8px;animation:none"><a class="btn btn-primary mag" href="#strategy-call">Book a Free Strategy Call <span class="arr">→</span></a></div>
+      </div><div class="sviz-panel playable" data-rv aria-hidden="true">${SVIZ[VZ[s.slug]]}</div></div></header>
+      <section class="sec"><div class="wrap sd-grid">
+        <div>
+          <span class="eyebrow" data-rv>Overview</span>
+          <p class="sd-over" data-rv style="margin-top:18px">${esc(s.overview)}</p>
+          <div class="sd-benefits" data-rv><h3>Benefits</h3><ul class="ticks">${s.benefits.map(b=>`<li>${TICK}<span>${esc(b)}</span></li>`).join('')}</ul></div>
+        </div>
+        <aside class="panel" data-rv><h3>What's included</h3><ul class="ticks">${s.included.map(b=>`<li>${TICK}<span>${esc(b)}</span></li>`).join('')}</ul></aside>
+      </div></section>
+      <section class="sec band-grey"><div class="wrap sd-two">
+        <div data-rv><span class="eyebrow">Why it matters</span><h2>What this does for your business.</h2><p class="sd-why">${esc(s.why)}</p></div>
+        <div data-rv><span class="eyebrow">Who it's for</span><ul class="who">${s.who.map(w=>`<li>${TICK}<span>${esc(w)}</span></li>`).join('')}</ul></div>
+      </div></section>
+      <section class="sec bg-white"><div class="wrap">
+        <div class="sec-head" data-rv><span class="eyebrow">Process</span><h2>How it works.</h2><p class="sub">Typical timings. We'll confirm yours on the strategy call.</p></div>
+        <ol class="steps" style="--n:${s.steps.length}"><li class="fill" aria-hidden="true"></li>${s.steps.map((st,i)=>`<li class="step" data-rv><span class="dot"></span><span class="num">${String(i+1).padStart(2,'0')}</span><span class="when">${esc(s.when[i])}</span><h3>${esc(st[0])}</h3><p>${esc(st[1])}</p></li>`).join('')}</ol>
+      </div></section>
+      <section class="sec band-grey"><div class="wrap">
+        <div class="sec-head" data-rv><span class="eyebrow">FAQs</span><h2>Common questions.</h2></div>
+        <div class="faq-list">${faqHTML(s.faqs,false)}</div>
+      </div></section>
+      <section class="sec"><div class="wrap">
+        <div class="sec-head" data-rv><span class="eyebrow">More services</span></div>
+        <div class="sgrid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))">${others.map(sCard).join('')}</div>
+      </div></section>
+      <section class="sec cta" data-cta>${MK('wm-big mark-band')}<div class="wrap">
+        <h2 data-rv>Ready to grow your business?</h2>
+        <p data-rv>Book a free strategy call — no pressure, no scripted pitch, just a conversation about what's possible for your business and what it would cost to get there.</p>
+        <div class="row" data-rv><a class="btn btn-band mag" href="#strategy-call">Book Your Free Strategy Call <span class="arr">→</span></a><a class="btn btn-band-line" href="#contact">Contact Amplivate</a></div>
+      </div></section>`;
+    bindInteractive($('#serviceDetail'));
+    if (window.__ampCtaObs) $$('#serviceDetail [data-cta]').forEach(el => window.__ampCtaObs.observe(el));
+  }
+
+  /* ---------------- theme ---------------- */
+  const redrawers = [];
+  const themeBtn = $('#themeBtn');
+  const sysDark = matchMedia('(prefers-color-scheme: dark)');
+  const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : sysDark.matches;
+  const syncTheme = () => { const d = isDark(); document.body.classList.toggle('is-dark', d); themeBtn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode'); redrawers.forEach(f => f()); };
+  try { const saved = localStorage.getItem('amp-theme'); if (saved) root.dataset.theme = saved; } catch(e){}
+  themeBtn.addEventListener('click', () => { root.dataset.theme = isDark() ? 'light' : 'dark'; try { localStorage.setItem('amp-theme', root.dataset.theme); } catch(e){} syncTheme(); });
+  sysDark.addEventListener('change', syncTheme);
+  new MutationObserver(syncTheme).observe(root, {attributes:true, attributeFilter:['data-theme']});
+
+  /* ---------------- header + drawer ---------------- */
+  const hdr = $('#hdr');
+  const onScroll = () => hdr.classList.toggle('scrolled', scrollY > 12);
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  const menuBtn = $('#menuBtn'), drawer = $('#drawer');
+  const setMenu = open => { drawer.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open); menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); document.body.style.overflow = open ? 'hidden' : ''; };
+  menuBtn.addEventListener('click', () => setMenu(!drawer.classList.contains('open')));
+  $$('a', drawer).forEach(a => a.addEventListener('click', () => setMenu(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+  /* ---------------- interactions (per page) ---------------- */
+  const fine = matchMedia('(pointer:fine)').matches;
+  function bindInteractive(scope){
+    $$('.val', scope).forEach(v => v.addEventListener('pointermove', e => { const r = v.getBoundingClientRect(); v.style.setProperty('--mx', (e.clientX-r.left)+'px'); v.style.setProperty('--my', (e.clientY-r.top)+'px'); }));
+    if (!reduce) $$('.playable', scope).forEach(c => c.addEventListener('mouseenter', () => { c.classList.remove('play'); void c.offsetWidth; requestAnimationFrame(() => c.classList.add('play')); }));
+    if (!reduce && fine) $$('.mag', scope).forEach(b => {
+      b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX-r.left-r.width/2)*.18}px, ${(e.clientY-r.top-r.height/2)*.3}px)`; });
+      b.addEventListener('pointerleave', () => { b.style.transform = ''; });
+    });
+  }
+  bindInteractive(document);
+
+  /* reveal */
+  let io = null;
+  if (!reduce && 'IntersectionObserver' in window) io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, sibs = [...el.parentElement.children].filter(c => c.hasAttribute('data-rv'));
+    el.style.transitionDelay = (Math.max(0, sibs.indexOf(el)) * 80) + 'ms';
+    el.classList.add('in'); io.unobserve(el);
+    if (el.classList.contains('playable')) setTimeout(() => el.classList.add('play'), 500);
+  }), {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+  function reveal(page, entering){
+    const vh = innerHeight; let i = 0;
+    $$('[data-rv]', page).forEach(el => {
+      el.classList.remove('rv','in','enter'); el.style.transitionDelay = ''; el.style.animationDelay = '';
+      if (!io){ if (el.classList.contains('card')) el.classList.add('play'); return; }
+      const top = el.getBoundingClientRect().top;
+      if (top < vh){
+        if (entering){ el.classList.add('enter'); el.style.animationDelay = (120 + i++ * 70) + 'ms'; }
+        if (el.classList.contains('playable')) setTimeout(() => el.classList.add('play'), 700);
+      } else { el.classList.add('rv'); io.observe(el); }
+    });
+  }
+
+  /* steps progress + CTA watermark parallax */
+  function onPageScroll(){
+    const page = current(); if (!page) return;
+    const vh = innerHeight;
+    $$('.steps', page).forEach(steps => {
+      const r = steps.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (vh*.78 - r.top) / (r.height*.9 + vh*.15)));
+      steps.style.setProperty('--p', p.toFixed(3));
+      const st = $$('.step', steps); st.forEach((s,i) => s.classList.toggle('on', p >= i/st.length + .02));
+    });
+    if (!reduce) $$('[data-cta] .wm-big', page).forEach(m => { const r = m.parentElement.getBoundingClientRect(); if (r.top < vh && r.bottom > 0) m.style.transform = `translateY(${(r.top - vh/2) * -.08}px) rotate(${(r.top - vh/2) * .006}deg)`; });
+  }
+  addEventListener('scroll', onPageScroll, {passive:true}); addEventListener('resize', onPageScroll);
+
+  /* ---------------- router ---------------- */
+  const PAGES = ['home','services','work','about','faqs','contact','privacy','terms'];
+  const pageEls = $$('.page');
+  const current = () => pageEls.find(p => !p.hidden);
+  function resolve(){
+    const h = decodeURIComponent(location.hash.slice(1)) || 'home';
+    if (h === 'strategy-call') return {page:'contact', strategy:true};
+    const svc = SERVICES.find(s => s.slug === h);
+    if (svc) return {page:'service', svc};
+    return {page: PAGES.includes(h) ? h : 'home'};
+  }
+  function show(r, entering){
+    if (r.svc) renderService(r.svc);
+    pageEls.forEach(p => p.hidden = p.dataset.page !== r.page);
+    const navKey = r.page === 'service' ? 'services' : r.page;
+    $$('[data-nav]').forEach(a => { if (a.dataset.nav === navKey) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+    scrollTo({top:0, behavior:'instant'});
+    const page = current();
+    reveal(page, entering);
+    onPageScroll();
+    const fc = $('#footCta'); if (fc) fc.hidden = !!page.querySelector('[data-cta]') || r.page === 'contact';
+    if (r.strategy) setTimeout(() => {
+      $('#cf-topic').value = 'Free strategy call';
+      const sc = $('#sc-block'); sc.classList.remove('flash'); void sc.offsetWidth; sc.classList.add('flash');
+      if (innerWidth < 981) $('#cform').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+    }, entering ? 450 : 50);
+  }
+  const veil = $('#veil'); let busy = null;
+  function navigate(){
+    const r = resolve();
+    if (reduce){ show(r, false); return; }
+    clearTimeout(busy);
+    veil.classList.remove('out'); void veil.offsetWidth; veil.classList.add('in');
+    busy = setTimeout(() => {
+      show(r, true);
+      veil.classList.remove('in'); veil.classList.add('out');
+      busy = setTimeout(() => { veil.classList.remove('out'); }, 420);
+    }, 270);
+  }
+  addEventListener('hashchange', navigate);
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (a && a.getAttribute('href') === location.hash){ e.preventDefault(); navigate(); }
+  });
+  show(resolve(), false);
+
+
+  /* home services preview: auto-cycles, hover or focus a row to jump to it */
+  (function(){
+    const pv = $('#homePreview'); if (!pv) return;
+    const frames = $$('.spv', pv), rows = $$('#homeSvc .svc');
+    let i = 0, timer = null, hovering = false, visible = false;
+    const show = k => {
+      i = k;
+      frames.forEach((f, j) => { f.classList.toggle('on', j === k); f.classList.remove('play'); });
+      void pv.offsetWidth; if (frames[k]) frames[k].classList.add('play');
+      rows.forEach((r, j) => r.classList.toggle('is-active', j === k));
+    };
+    const tick = () => { if (!hovering && visible) show((i + 1) % frames.length); };
+    const start = () => { clearInterval(timer); if (!reduce) timer = setInterval(tick, 6500); };
+    rows.forEach((r, j) => {
+      r.addEventListener('mouseenter', () => { hovering = true; show(j); });
+      r.addEventListener('mouseleave', () => { hovering = false; start(); });
+      r.addEventListener('focus', () => { show(j); start(); });
+    });
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => { const v = es[0].isIntersecting; if (v && !visible) show(i); visible = v; }).observe(pv);
+    else visible = true;
+    show(0); start();
+  })();
+
+  /* mobile booking bar: appears after the hero, steps aside for the dark call-to-action bands */
+  (function(){
+    const bar = $('#mbar'); if (!bar) return;
+    let inCta = false;
+    const update = () => { const pg = typeof current === 'function' ? current() : null; const onContact = pg ? pg.dataset.page === 'contact' : /\/contact\//.test(location.pathname); bar.classList.toggle('show', scrollY > 520 && !inCta && !onContact); };
+    if ('IntersectionObserver' in window) { const seen = new Set(); const ob = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)); inCta = seen.size > 0; update(); }); $$('[data-cta], footer').forEach(el => ob.observe(el)); window.__ampCtaObs = ob; }
+    addEventListener('scroll', update, {passive:true}); addEventListener('hashchange', () => setTimeout(update, 450)); update();
+  })();
+
+  /* ---------------- contact form ---------------- */
+  const form = $('#cform'), done = $('#cdone');
+  const setErr = (id, msg) => { const f = $('#'+id).closest('.fld'); f.classList.toggle('bad', !!msg); $('.err', f).textContent = msg || ''; };
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = $('#cf-name').value.trim(), email = $('#cf-email').value.trim(), biz = $('#cf-biz').value.trim(), topic = $('#cf-topic').value, msg = $('#cf-msg').value.trim();
+    let ok = true;
+    setErr('cf-name', name ? '' : 'Add your name so we know who to reply to.'); ok = ok && !!name;
+    const em = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    setErr('cf-email', em ? '' : 'Enter an email address like name@business.co.uk.'); ok = ok && em;
+    setErr('cf-msg', msg ? '' : 'Tell us a little about what you need.'); ok = ok && !!msg;
+    if (!ok){ $('.fld.bad input, .fld.bad textarea', form)?.focus(); return; }
+    const subject = `Website enquiry: ${topic}`;
+    const body = `Name: ${name}\nEmail: ${email}\nBusiness: ${biz || '-'}\nEnquiry: ${topic}\n\n${msg}`;
+    $('#cpre').textContent = `To: hello@amplivate.co.uk\nSubject: ${subject}\n\n${body}`;
+    $('#cMailto').href = `mailto:hello@amplivate.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    form.hidden = true; done.hidden = false; done.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'});
+  });
+  $('#cEdit').addEventListener('click', () => { done.hidden = true; form.hidden = false; $('#cf-msg').focus(); });
+  $('#scBtn').addEventListener('click', () => { $('#cf-topic').value = 'Free strategy call'; form.hidden = false; done.hidden = true; $('#cf-name').focus({preventScroll:true}); $('#cform').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'}); });
+
+  function copyText(text, btn, label){
+    const fallback = () => { const pre = btn.closest('.done') ? $('#cpre') : btn.previousElementSibling; if (pre){ const rg = document.createRange(); rg.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(rg); } btn.textContent = 'Selected, press Ctrl+C'; setTimeout(() => btn.textContent = label, 2400); };
+    try { navigator.clipboard.writeText(text).then(() => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = label, 1800); }, fallback); } catch(e){ fallback(); }
+  }
+  $('#cCopyMsg').addEventListener('click', e => copyText($('#cpre').textContent, e.currentTarget, 'Copy message'));
+  $$('[data-copy]').forEach(b => b.addEventListener('click', () => copyText(b.dataset.copy, b, 'Copy')));
+
+  /* ---------------- canvases (home hero) ---------------- */
+  function setup(canvas, draw){
+    const ctx = canvas.getContext('2d'); let w = 0, h = 0, raf = 0, running = false, t = 0;
+    const size = () => { const dpr = Math.min(devicePixelRatio || 1, 2); w = canvas.clientWidth; h = canvas.clientHeight; if (!w || !h) return; canvas.width = w*dpr; canvas.height = h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); draw(ctx, w, h, t); };
+    const loop = () => { t += .016; if (w && h) draw(ctx, w, h, t); raf = requestAnimationFrame(loop); };
+    new ResizeObserver(size).observe(canvas); size();
+    redrawers.push(() => { if (w && h) draw(ctx, w, h, t); });
+    if (reduce) return;
+    new IntersectionObserver(es => { const v = es[0].isIntersecting; if (v && !running){ running = true; loop(); } else if (!v && running){ running = false; cancelAnimationFrame(raf); } }).observe(canvas);
+  }
+  (function(){
+    let nodes = [], lastW = 0;
+    const seed = (w, h) => { const n = Math.round(Math.min(46, Math.max(18, w*h/26000))); nodes = Array.from({length:n}, () => ({x:Math.random()*w, y:Math.random()*h, vx:(Math.random()-.5)*.18, vy:(Math.random()-.5)*.18})); lastW = w; };
+    setup($('#net'), (ctx, w, h) => {
+      if (!nodes.length || Math.abs(w-lastW) > 60) seed(w, h);
+      ctx.clearRect(0,0,w,h);
+      const col = css('--faint'), link = Math.min(190, w*.28);
+      if (!reduce) nodes.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > w) p.vx *= -1; if (p.y < 0 || p.y > h) p.vy *= -1; });
+      ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 1;
+      for (let i = 0; i < nodes.length; i++){
+        for (let j = i+1; j < nodes.length; j++){ const a = nodes[i], b = nodes[j], d = Math.hypot(a.x-b.x, a.y-b.y); if (d < link){ ctx.globalAlpha = (1-d/link)*.35; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); } }
+        ctx.globalAlpha = .6; ctx.beginPath(); ctx.arc(nodes[i].x, nodes[i].y, 2.2, 0, 7); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    });
+  })();
+  (function(){
+    const canvas = $('#wave'), host = $('.hero');
+    let px = -9999, target = -9999;
+    host.addEventListener('pointermove', e => { const r = canvas.getBoundingClientRect(); target = e.clientX - r.left; });
+    host.addEventListener('pointerleave', () => { target = -9999; });
+    setup(canvas, (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h);
+      const hi = css('--accent'), lo = css('--faint');
+      const gap = w < 600 ? 7 : 9, bw = Math.max(2, gap*.5), n = Math.ceil(w/gap)+1;
+      px += (target - px) * .08;
+      for (let i = 0; i < n; i++){
+        const x = i*gap, k = x/w, env = .12 + .88*Math.pow(k, 1.35);
+        const osc = .55 + .45*Math.sin(i*.21 + t*1.7)*Math.cos(i*.053 - t*.8);
+        const near = target > -9000 ? Math.exp(-Math.pow(x-px,2)/(2*110*110)) : 0;
+        const amp = Math.min(1, env*osc + near*.55), bh = Math.max(2, amp*h*.9);
+        ctx.globalAlpha = .2 + .7*amp; ctx.fillStyle = amp > .62 ? hi : lo;
+        ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(x, h/2-bh/2, bw, bh, bw/2); else ctx.rect(x, h/2-bh/2, bw, bh); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    });
+  })();
+
+  setTimeout(() => $$('.wm.draw').forEach(w => w.classList.remove('draw')), 2200);
+  syncTheme();
+})();
+</script>

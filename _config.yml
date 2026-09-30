@@ -1,0 +1,3 @@
+# GitHub Pages: publish the files as they are. Folders starting with _ (like _build) are not published.
+exclude:
+  - README.md
