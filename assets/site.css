@@ -727,6 +727,10 @@ footer{padding-block:56px 36px}
   .rv{opacity:1;transform:none}
 }
 
+/* ---------- self-hosted fonts (SIL Open Font License) ---------- */
+@font-face{font-family:"Fraunces";font-style:normal;font-weight:100 900;font-display:swap;src:url("fonts/fraunces.woff2") format("woff2-variations"),url("fonts/fraunces.woff2") format("woff2")}
+@font-face{font-family:"Manrope";font-style:normal;font-weight:200 800;font-display:swap;src:url("fonts/manrope.woff2") format("woff2-variations"),url("fonts/manrope.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url("fonts/ibm-plex-mono-500.woff2") format("woff2")}
 /* ---------- standalone page additions ---------- */
 html,body{margin:0}
 img{max-width:100%}

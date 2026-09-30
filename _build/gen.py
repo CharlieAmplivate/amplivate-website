@@ -74,6 +74,10 @@ if FOUNDER_PHOTO:
     src = re.sub(r'(<div class="(?:meet-av|monogram)">)(?:<svg.*?</svg>|<img[^>]*>)(</div>)', lambda m: m.group(1) + IMG + m.group(2), src)
 
 extra_css = '''
+/* ---------- self-hosted fonts (SIL Open Font License) ---------- */
+@font-face{font-family:"Fraunces";font-style:normal;font-weight:100 900;font-display:swap;src:url("fonts/fraunces.woff2") format("woff2-variations"),url("fonts/fraunces.woff2") format("woff2")}
+@font-face{font-family:"Manrope";font-style:normal;font-weight:200 800;font-display:swap;src:url("fonts/manrope.woff2") format("woff2-variations"),url("fonts/manrope.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url("fonts/ibm-plex-mono-500.woff2") format("woff2")}
 /* ---------- standalone page additions ---------- */
 html,body{margin:0}
 img{max-width:100%}
@@ -104,7 +108,9 @@ def fill(block, container_id, inner):
     return pat.sub(lambda m: m.group(1) + inner + m.group(2), block, count=1)
 
 # ---------- head ----------
-FONTS = between(src, '<link rel="preconnect" href="https://fonts.googleapis.com">', 'display=swap">')
+# Fonts are served from /assets/fonts (no Google Fonts request, so no visitor data goes to Google)
+FONTS = ('<link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>\n'
+         '<link rel="preload" href="/assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>')
 
 ORG = {
     "@context": "https://schema.org", "@type": "ProfessionalService", "name": "Amplivate",
@@ -276,6 +282,7 @@ build('/404', None, 'Page not found | Amplivate', 'This page doesn\'t exist.', n
 # ---------- assets ----------
 open(OUT + '/assets/site.css', 'w').write(css.strip() + '\n' + extra_css)
 shutil.copy(os.path.join(BASE, 'site.js'), OUT + '/assets/site.js')
+shutil.copytree(os.path.join(BASE, 'fonts'), OUT + '/assets/fonts')
 if FOUNDER_PHOTO: shutil.copy(os.path.join(BASE, FOUNDER_PHOTO), OUT + '/assets/' + FOUNDER_PHOTO)
 open(OUT + '/assets/favicon.svg', 'w').write(
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-12 -24 291 290"><style>path,circle{fill:#4a5669}@media (prefers-color-scheme:dark){path,circle{fill:#c3ccda}}</style>'
