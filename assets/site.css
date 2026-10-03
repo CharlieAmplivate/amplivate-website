@@ -667,10 +667,10 @@ footer{background:var(--surface);padding-block:72px 36px}
 footer{padding-block:56px 36px}
 .foot-cta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px 32px;padding-bottom:44px;margin-bottom:52px;border-bottom:1px solid var(--line)}
 .foot-cta p{font-family:var(--f-display);font-weight:600;font-size:clamp(20px,2.2vw,27px);line-height:1.3;letter-spacing:-.01em;max-width:34ch;color:var(--fg)}
-.socials{display:flex;gap:10px;margin-top:16px}
-.socials a{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--muted);box-shadow:inset 0 0 0 1px var(--line-strong);transition:color .25s,box-shadow .25s,transform .35s var(--ease)}
+.socials{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+.socials a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--muted);box-shadow:inset 0 0 0 1px var(--line-strong);transition:color .25s,box-shadow .25s,transform .35s var(--ease)}
 .socials a:hover{color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);transform:translateY(-2px)}
-.socials svg{width:18px;height:18px;fill:currentColor}
+.socials svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .phone-line{margin-top:10px;font-weight:600}
 .phone-line a{color:var(--fg)}
 .mbar{display:none}
