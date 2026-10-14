@@ -116,8 +116,7 @@ ORG = {
     "@context": "https://schema.org", "@type": "ProfessionalService", "name": "Amplivate",
     "url": DOMAIN + "/", "logo": DOMAIN + "/assets/logo.png", "image": DOMAIN + "/assets/og-image.png",
     "email": "hello@amplivate.co.uk", "slogan": "Amplify Reach. Elevate Business.",
-    "description": "West Sussex digital marketing agency helping local businesses across the UK with Local SEO, Google Business Profiles, websites, social media and practical AI tools.",
-    "address": {"@type": "PostalAddress", "addressRegion": "West Sussex", "addressCountry": "GB"},
+    "description": "Digital marketing agency helping local businesses across the UK with Local SEO, Google Business Profiles, websites, social media and practical AI tools.",
     "areaServed": {"@type": "Country", "name": "United Kingdom"},
     "knowsAbout": ["Local SEO", "Google Business Profile optimisation", "Website design", "Social media management", "Missed call text back", "Google review follow up"]
 }
@@ -195,8 +194,8 @@ home = fill(home, 'homeSvc', gen['homeSvc'])
 home = fill(home, 'homeWork', gen['homeWork'])
 home = fill(home, 'mq', gen['mq'])
 home = fill(home, 'homePreview', gen['homePreview'])
-build('/', None, 'Amplivate | Local SEO & Digital Marketing in West Sussex & across the UK',
-      'Amplivate is a West Sussex digital marketing agency helping local businesses across the UK with Local SEO, Google Business Profiles, websites, social media and AI tools.',
+build('/', None, 'Amplivate | Local SEO & Digital Marketing across the UK',
+      'Amplivate is a digital marketing agency helping local businesses across the UK with Local SEO, Google Business Profiles, websites, social media and AI tools.',
       home, [ORG, {"@context": "https://schema.org", "@type": "WebSite", "name": "Amplivate", "url": DOMAIN + "/"}])
 
 # ---------- services ----------
@@ -229,7 +228,7 @@ build('/work/', 'work', 'Our Work | Amplivate',
 
 # ---------- about ----------
 build('/about/', 'about', 'About | Amplivate',
-      'A small digital marketing agency based in West Sussex: fair pricing, honest reporting, and direct access to the person doing the work.',
+      'A small digital marketing agency working with businesses across the UK: fair pricing, honest reporting, and direct access to the person doing the work.',
       page_block('about'), [crumbs([('Home', '/'), ('About', '/about/')])])
 
 # ---------- faqs ----------
@@ -263,7 +262,7 @@ if BOOKING_URL:
                               f'<a class="btn btn-band" href="{BOOKING_URL}" target="_blank" rel="noopener">Pick a time <span class="arr">→</span></a>')
 assert 'data-web3forms-key' in contact and 'id="csent"' in contact and 'id="cf-bot"' in contact
 build('/contact/', 'contact', 'Contact | Amplivate',
-      'Book a free strategy call or send Amplivate a message. Based in West Sussex, working across the UK, and we aim to reply within one working day.',
+      'Book a free strategy call or send Amplivate a message. We work with businesses across the UK and aim to reply within one working day.',
       contact, [crumbs([('Home', '/'), ('Contact', '/contact/')])])
 
 # ---------- legal ----------
