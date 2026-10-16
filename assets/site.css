@@ -412,6 +412,7 @@ footer{background:var(--surface);padding-block:72px 36px}
 .foot .muted{color:var(--faint);margin-top:10px}
 .legal{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--faint)}
 .legal nav{display:flex;gap:22px}
+.legal-id{line-height:1.6}
 .legal a:hover{color:var(--fg)}
 
 /* ---------- service animations ---------- */
