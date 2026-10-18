@@ -401,7 +401,7 @@
   const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : sysDark.matches;
   const syncTheme = () => { const d = isDark(); document.body.classList.toggle('is-dark', d); themeBtn.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode'); redrawers.forEach(f => f()); };
   let savedTheme = null; try { savedTheme = localStorage.getItem('amp-theme'); } catch(e){}
-  if (savedTheme) root.dataset.theme = savedTheme; else if (!root.dataset.theme) root.dataset.theme = 'dark';
+  if (savedTheme) root.dataset.theme = savedTheme; else if (!root.dataset.theme) root.dataset.theme = 'light';
   themeBtn.addEventListener('click', () => { root.dataset.theme = isDark() ? 'light' : 'dark'; try { localStorage.setItem('amp-theme', root.dataset.theme); } catch(e){} syncTheme(); });
   sysDark.addEventListener('change', syncTheme);
 

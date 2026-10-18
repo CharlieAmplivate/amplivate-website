@@ -116,7 +116,7 @@ def head(title, desc, path, page, slug='', ld=(), noindex=False):
 <title>{t}</title>
 <meta name="description" content="{d}">
 {robots}<link rel="canonical" href="{DOMAIN}{canon}">
-<meta name="theme-color" content="#15181d">
+<meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Amplivate">
 <meta property="og:locale" content="en_GB">
@@ -134,7 +134,7 @@ def head(title, desc, path, page, slug='', ld=(), noindex=False):
 <link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css?v={VER}">
-<script>(function(d){{var t=null;try{{t=localStorage.getItem('amp-theme');if(sessionStorage.getItem('amp-sweep')){{d.classList.add('sweep-on');sessionStorage.removeItem('amp-sweep')}}}}catch(e){{}}d.dataset.theme=t||'dark'}})(document.documentElement)</script>
+<script>(function(d){{var t=null;try{{t=localStorage.getItem('amp-theme');if(sessionStorage.getItem('amp-sweep')){{d.classList.add('sweep-on');sessionStorage.removeItem('amp-sweep')}}}}catch(e){{}}d.dataset.theme=t||'light'}})(document.documentElement)</script>
 {lds}<script src="/assets/site.js?v={VER}" defer></script>
 </head>
 <body data-page="{page}"{f' data-slug="{slug}"' if slug else ''}>
