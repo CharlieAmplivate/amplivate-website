@@ -1,13 +1,12 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" data-base="../">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>About | Amplivate</title>
 <meta name="description" content="A small digital marketing agency working with businesses across the UK: fair pricing, honest reporting, and direct access to the person doing the work.">
 <link rel="canonical" href="https://amplivate.co.uk/about/">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1a1f26" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#15181d">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Amplivate">
 <meta property="og:locale" content="en_GB">
@@ -17,30 +16,32 @@
 <meta property="og:image" content="https://amplivate.co.uk/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Amplivate logo: Amplify Reach. Elevate Business.">
+<meta property="og:image:alt" content="Amplivate: Get found. Get chosen. Get the call.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="preload" href="../assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/site.css">
-<script>(function(d){try{var t=localStorage.getItem('amp-theme');if(t)d.dataset.theme=t;if(sessionStorage.getItem('amp-veil')){d.classList.add('veil-on');sessionStorage.removeItem('amp-veil')}}catch(e){}})(document.documentElement)</script>
+<link rel="stylesheet" href="../assets/site.css?v=202610181330">
+<script>(function(d){var t=null;try{t=localStorage.getItem('amp-theme');if(sessionStorage.getItem('amp-sweep')){d.classList.add('sweep-on');sessionStorage.removeItem('amp-sweep')}}catch(e){}d.dataset.theme=t||'dark'})(document.documentElement)</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://amplivate.co.uk/"}, {"@type": "ListItem", "position": 2, "name": "About", "item": "https://amplivate.co.uk/about/"}]}</script>
-<script src="../assets/site.js" defer></script>
+<script src="../assets/site.js?v=202610181330" defer></script>
 </head>
-<body>
+<body data-page="about">
 <a class="skip" href="#main">Skip to content</a>
 <!-- logo sprite -->
 <svg class="sprite" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--logo-hi)"/><stop offset="1" style="stop-color:var(--logo-lo)"/></linearGradient>
-    <linearGradient id="lgb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--band-logo-hi)"/><stop offset="1" style="stop-color:var(--band-logo-lo)"/></linearGradient>
+    <linearGradient id="lgb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c3ccda"/><stop offset="1" stop-color="#6d7d97"/></linearGradient>
     <symbol id="mk" viewBox="0 0 267 242"><circle cx="30" cy="212" r="30"/><path d="M53 128 93 78 160 242H105Z"/><path d="M97 0h53l117 242h-57Z"/></symbol>
     <symbol id="wmk" viewBox="-3 -3 296 30"><path pathLength="1" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="miter" stroke-linecap="square" d="M0 24 10 0 20 24M38 24V0l10 16L58 0v24M76 24V0h10a6 6 0 0 1 0 12H76M110 0v24h15M143 0v24M161 0l10 24 10-24M199 24 209 0l10 24M237 0h20M247 0v24M290 0h-15v24h15M275 12h13"/></symbol>
+    <symbol id="ck" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="star" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.4L12 17.8 5.4 21.8l1.8-7.4L1.5 9.5 9 8.9z"/></symbol>
+    <symbol id="go" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </defs>
 </svg>
-
 <header class="hdr" id="hdr">
   <div class="wrap">
     <a class="brand" href="../" aria-label="Amplivate home">
@@ -49,23 +50,24 @@
     </a>
     <div class="tools">
       <nav class="nav" aria-label="Main">
-        <ul>
+        <ul id="navList">
           <li><a href="../services/" data-nav="services">Services</a></li>
           <li><a href="../work/" data-nav="work">Work</a></li>
           <li><a href="../about/" data-nav="about" aria-current="page">About</a></li>
+          <li><a href="../faqs/" data-nav="faqs">FAQs</a></li>
           <li><a href="../contact/" data-nav="contact">Contact</a></li>
+          <li aria-hidden="true" class="nav-ind" id="navInd"></li>
         </ul>
-        <a class="btn btn-primary" href="../contact/#strategy-call">Book a Free Strategy Call</a>
+        <a class="btn btn-primary" href="../contact/#strategy-call">Book a free strategy call</a>
       </nav>
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to dark mode">
+      <button class="icon-btn theme-btn" id="themeBtn" type="button" aria-label="Switch to dark mode">
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       </button>
-      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
     </div>
   </div>
 </header>
-
 <div class="drawer" id="drawer">
   <a class="big" href="../">Home</a>
   <a class="big" href="../services/">Services</a>
@@ -73,79 +75,74 @@
   <a class="big" href="../about/">About</a>
   <a class="big" href="../faqs/">FAQs</a>
   <a class="big" href="../contact/">Contact</a>
-  <a class="btn btn-primary" href="../contact/#strategy-call">Book a Free Strategy Call <span class="arr">→</span></a>
-  <div class="lockup">
-    <svg class="mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
-    <svg class="wm" viewBox="-3 -3 296 30" aria-hidden="true"><use href="#wmk"/></svg>
-    <span class="rule"></span>
-    <span class="tl">Amplify Reach. Elevate Business.</span>
-  </div>
+  <a class="btn btn-primary" href="../contact/#strategy-call">Book a free strategy call</a>
+  <p class="dfoot">hello@amplivate.co.uk<br>Working with local businesses across the UK</p>
 </div>
-
-<div class="veil" id="veil" aria-hidden="true"><svg class="mark mark-band" viewBox="0 0 267 242"><use href="#mk"/></svg></div>
-
-<main id="main" class="page">
-<header class="phead">
-    <svg class="bgmark mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+<div class="glint" aria-hidden="true"></div>
+<div class="sweep" id="sweep" aria-hidden="true"><i></i><i></i><svg class="mark" viewBox="0 0 267 242"><use href="#mk"/></svg></div>
+<main id="main">
+<div class="page" data-page="about">
+  <header class="phead"><svg class="deco deco-bars" viewBox="0 0 267 242" aria-hidden="true"><path d="M53 128 93 78 160 242H105Z"></path><path d="M97 0h53l117 242h-57Z"></path></svg><span class="deco deco-dot" aria-hidden="true"></span>
     <div class="wrap">
-      <span class="eyebrow">About</span>
-      <h1>An agency, built the way we'd want to hire one.</h1>
+      <h1 class="display">An agency, built the way we'd want to hire one.</h1>
     </div>
   </header>
-  <section class="sec">
-    <div class="wrap two">
-      <div data-rv><h2>Why Amplivate exists</h2><p>Too often we see local business marketing sold as a package instead of built as a strategy: the same SEO checklist, the same templated website, the same generic social posts, regardless of what the business actually needs. Amplivate exists to do it differently: work built around the business in front of us, priced fairly, and reported on honestly.</p></div>
-      <div data-rv>
-        <h2>Meet the founder</h2>
-        <div class="founder">
-          <div class="monogram"><img src="../assets/charlie.jpg" alt="Charlie, founder of Amplivate" width="296" height="296"></div>
-          <div>
-            <h3>Charlie</h3>
-            <div class="role">Founder &amp; Managing Director</div>
-            <p class="bio">I started Amplivate to give local businesses the kind of joined up marketing that usually needs a much bigger budget: a Google presence that brings in enquiries, a website built to convert, and simple automations that stop leads slipping through the cracks. Working with businesses across the UK, I'm the person running your campaigns, building your site and answering your emails.</p>
-          </div>
+  <section class="sec" style="padding-top:0">
+    <div class="wrap about-grid">
+      <div>
+        <h2 class="title-s" style="margin-bottom:18px">Why Amplivate exists</h2>
+        <p class="lead" style="max-width:none">Too often we see local business marketing sold as a package instead of built as a strategy: the same SEO checklist, the same templated website, the same generic social posts, regardless of what the business actually needs. Amplivate exists to do it differently: work built around the business in front of us, priced fairly, and reported on honestly.</p>
+      </div>
+      <div>
+        <h2 class="title-s" style="margin-bottom:18px">Meet the founder</h2>
+        <div class="f-card">
+          <img src="../assets/charlie.jpg" alt="Charlie, founder of Amplivate" width="296" height="296">
+          <div><h3>Charlie</h3><div class="role">Founder and Managing Director</div></div>
         </div>
+        <p class="bio">I started Amplivate to give local businesses the kind of joined up marketing that usually needs a much bigger budget: a Google presence that brings in enquiries, a website built to convert, and simple automations that stop leads slipping through the cracks. Working with businesses across the UK, I'm the person running your campaigns, building your site and answering your emails.</p>
       </div>
     </div>
   </section>
-  <section class="sec band-grey">
-    <div class="wrap" style="display:grid;gap:26px">
-      <span class="eyebrow" data-rv>Our mission</span>
-      <p class="mission" data-rv>To give local UK businesses access to the kind of strategic, bespoke marketing usually reserved for companies with much bigger budgets, without the bloated retainers or the corporate fluff.</p>
+  <section class="sec fog">
+    <div class="wrap">
+      <span class="kicker">Our mission</span>
+      <p class="mission">To give local UK businesses access to the kind of strategic, bespoke marketing usually reserved for companies with much bigger budgets, without the bloated retainers or the corporate fluff.</p>
     </div>
   </section>
   <section class="sec">
     <div class="wrap">
-      <div class="sec-head" data-rv><span class="eyebrow">Values</span></div>
-      <div class="values three">
-        <article class="val" data-rv><h3>Honesty over hype</h3><p>No invented urgency, no inflated promises, no results we can't stand behind.</p></article>
-        <article class="val" data-rv><h3>Fit over templates</h3><p>A plan built around your business and the market you actually compete in.</p></article>
-        <article class="val" data-rv><h3>Access over hierarchy</h3><p>You deal directly with the person doing the work.</p></article>
+      <h2 class="title" style="margin-bottom:clamp(32px,4vw,56px)">What we stand for</h2>
+      <div class="vals three">
+        <article class="val"><h3>Honesty over hype</h3><p>No invented urgency, no inflated promises, no results we can't stand behind.</p></article>
+        <article class="val"><h3>Fit over templates</h3><p>A plan built around your business and the market you actually compete in.</p></article>
+        <article class="val"><h3>Access over hierarchy</h3><p>You deal directly with the person doing the work.</p></article>
       </div>
     </div>
   </section>
-  <section class="sec band-grey">
-    <div class="wrap two" style="row-gap:56px">
-      <div data-rv><h2>What makes us different</h2><p>Most agencies scale by adding account managers between you and the work. Amplivate is built to stay small on purpose, so every client works directly with the person running their campaigns, building their site, and answering their emails.</p></div>
-      <div data-rv><h2>How we help businesses grow</h2><p>Through the work that actually moves the needle for local businesses: search visibility, a Google Business Profile that converts, a website built to sell, and social media that keeps you visible, plus practical AI tools that handle repetitive follow up so nothing falls through the cracks.</p></div>
-      <div data-rv><h2>Vision for the future</h2><p>As Amplivate grows, so does this: a client dashboard for real time reporting, AI tools clients can manage themselves, and resources for local businesses trying to understand their own marketing. Added because it's useful, not because it looks impressive.</p></div>
-      <div data-rv class="lockup" style="align-self:center">
-        <svg class="mark" viewBox="0 0 267 242" aria-hidden="true" style="width:70px;height:67px"><use href="#mk"/></svg>
-        <svg class="wm" viewBox="-3 -3 296 30" aria-hidden="true" style="width:240px"><use href="#wmk"/></svg>
-        <span class="rule"></span>
-        <span class="tl">Amplify Reach. Elevate Business.</span>
-      </div>
-    </div>
-  </section>
-  <section class="sec cta" data-cta>
-    <svg class="wm-big mark mark-band" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
+  <section class="sec fog">
     <div class="wrap">
-      <h2 data-rv>Let's talk about your business.</h2>
-      <div class="row" data-rv><a class="btn btn-band mag" href="../contact/#strategy-call">Book a Free Strategy Call <span class="arr">→</span></a></div>
+      <div class="diff">
+        <div><h3>What makes us different</h3><p>Most agencies scale by adding account managers between you and the work. Amplivate is built to stay small on purpose, so every client works directly with the person running their campaigns, building their site, and answering their emails.</p></div>
+        <div><h3>How we help businesses grow</h3><p>Through the work that actually moves the needle for local businesses: search visibility, a Google Business Profile that converts, a website built to sell, and social media that keeps you visible, plus practical AI tools that handle repetitive follow up so nothing falls through the cracks.</p></div>
+        <div><h3>Vision for the future</h3><p>As Amplivate grows, so does this: a client dashboard for real time reporting, AI tools clients can manage themselves, and resources for local businesses trying to understand their own marketing. Added because it's useful, not because it looks impressive.</p></div>
+      </div>
+      <div class="lockup" style="margin-top:clamp(48px,6vw,80px)">
+        <svg class="mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"></use></svg>
+        <svg class="wm" viewBox="-3 -3 296 30" aria-hidden="true"><use href="#wmk"></use></svg>
+        <span class="rule"></span>
+        <span class="tl">AMPLIFY REACH. ELEVATE BUSINESS.</span>
+      </div>
     </div>
   </section>
+  <section class="sec night cta-band" data-cta="">
+    <svg class="bg-mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"></use></svg>
+    <div class="wrap">
+      <h2 class="title">Let's talk about your business.</h2>
+      <div class="btn-row"><a class="btn btn-light" href="../contact/#strategy-call">Book a free strategy call</a></div>
+    </div>
+  </section>
+</div>
 </main>
-
 <footer>
   <div class="wrap">
     <div class="foot">
@@ -154,7 +151,7 @@
           <svg class="mark" viewBox="0 0 267 242" aria-hidden="true"><use href="#mk"/></svg>
           <svg class="wm" viewBox="-3 -3 296 30" aria-hidden="true"><use href="#wmk"/></svg>
           <span class="rule"></span>
-          <span class="tl">Amplify Reach. Elevate Business.</span>
+          <span class="tl">AMPLIFY REACH. ELEVATE BUSINESS.</span>
         </a>
       </div>
       <div>
@@ -170,8 +167,8 @@
       <div>
         <h4>Get in touch</h4>
         <div class="mail"><span>hello@amplivate.co.uk</span><button class="copy" type="button" data-copy="hello@amplivate.co.uk">Copy</button></div>
-        
-        <p class="muted">Working with local businesses across the UK</p>
+        <!--PHONE_FOOT--><!--/PHONE_FOOT-->
+        <p class="loc">Working with local businesses across the UK</p>
         <div class="socials"><a href="https://www.facebook.com/share/1CfDDcUhrs/" target="_blank" rel="noopener" aria-label="Amplivate on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><a href="https://www.instagram.com/amplivate.agency/" target="_blank" rel="noopener" aria-label="Amplivate on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></a><a href="mailto:hello@amplivate.co.uk" aria-label="Email Amplivate"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a><a href="https://www.linkedin.com/in/charlierobinson-amplivate" target="_blank" rel="noopener" aria-label="Charlie Robinson on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></div>
       </div>
     </div>
@@ -181,7 +178,6 @@
     </div>
   </div>
 </footer>
-
-<a class="mbar" id="mbar" href="../contact/#strategy-call">Book a free strategy call <span class="arr">→</span></a>
+<a class="mbar" id="mbar" href="../contact/#strategy-call">Book a free strategy call</a>
 </body>
 </html>

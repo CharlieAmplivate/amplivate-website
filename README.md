@@ -23,3 +23,14 @@ The live site for [amplivate.co.uk](https://amplivate.co.uk), served by GitHub P
 | `_build/` | Source and build tools (not published) |
 
 Contact form messages are sent through Web3Forms to hello@amplivate.co.uk.
+
+
+## New look (October 2026)
+
+The site design now lives in `_build/v2/`:
+- `body.html` every page plus the shared header, menu and footer
+- `style.css` the look (charcoal concrete by default, white as the second theme)
+- `app.js` the preview script, used to render each page
+- `site.js` the live site script
+
+Rebuild with `python3 _build/build.py`. The old single-file build (`amplivate.html`, `gen.py`, `site.js` in `_build/`) is kept for reference.

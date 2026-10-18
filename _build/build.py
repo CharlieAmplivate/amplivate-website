@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild the Amplivate site and copy it to the repository root (the folder GitHub Pages publishes).
 
-Edit the site in amplivate.html (and the YOUR DETAILS block at the top of gen.py), then run:
+Edit the design in _build/v2/ (body.html, style.css, app.js for the preview, site.js for the live site), then run:
     python3 _build/build.py
 """
 import os, shutil, subprocess, sys
@@ -9,7 +9,7 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(BASE)
 KEEP = {'.git', '_build', 'README.md', '_config.yml', '.gitignore', 'CNAME'}
 
-for step in ('prerender.py', 'gen.py', 'assets.py'):
+for step in ('gen2.py', 'assets.py'):
     subprocess.run([sys.executable, os.path.join(BASE, step)], check=True)
 
 dist = os.path.join(BASE, 'dist')
